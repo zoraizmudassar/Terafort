@@ -1,16 +1,5 @@
-@extends( (Auth::user()->id == "2") ? 'layouts.admin-layout' : 'layouts.user-layout')
+@extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
-<?php
-	// $id = Auth::user()->id;
-	// $UserDetail = DB::table("users")->where("id", $id)->pluck('userrole');
-	// $UserDetail1 = DB::table("newroles")->where("name", $UserDetail)->get();
-	// $obj = json_decode (json_encode ($UserDetail1), FALSE);
-    // $storeData = [];
-    // foreach($obj as $dataa){
-    //     $storeData[$dataa->role_name] = $dataa->value; 
-    // }
-    // print_r($storeData);
-?>
 <style>
     #loader1 
     {  
@@ -159,7 +148,6 @@
     </div>
 </div>
 <script src="assets/js/customjquery.min.js"></script>
-<script src="assets/js/sweetalert.min.js"></script>
 <script>
     $(document).ready(function(){ 
         $("#loader1").fadeOut(1200);
@@ -197,41 +185,5 @@
             });
         }
     });
-</script>
-<script>
-@if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            Swal.fire({
-            icon: 'info',
-            title: "Error!",
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'warning':
-            Swal.fire({
-            icon: 'warning',
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'success':
-            Swal.fire({
-            icon: 'success',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-        case 'error':
-            Swal.fire({
-            icon: 'error',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-    }
-  @endif
 </script>
 @endsection

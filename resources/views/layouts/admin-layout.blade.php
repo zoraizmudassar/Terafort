@@ -8,19 +8,16 @@
     <meta content="" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="img/photos/modified.png">
-    <link href="plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
-    
+    <link href="plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">    
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/jquery-ui.min.css" rel="stylesheet">
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
-
     <link href="plugins/dropify/css/dropify.min.css" rel="stylesheet">
     <link href="plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
-    
     <link href="plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
     <link href="plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
     <link href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css" rel="stylesheet" type="text/css" />
@@ -76,7 +73,7 @@
     <div class="topbar-left">
         <a href="{{url('home')}}">
             <span>
-                <!-- <img src="img/photos/terafort.jpeg" style="margin-top: 20px;" width="35%" alt="logo-large" class="logo-lg"> -->
+                <img src="img/photos/terafort.jpeg" style="margin-top: 20px;" width="35%" alt="logo-large" class="logo-lg">
             </span>
         </a>
     </div>
@@ -230,7 +227,7 @@
 <script src="plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
 <script src="plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
 <script src="assets/pages/jquery.forms-advanced.js"></script>
-<!-- For Complaint -->
+<script src="assets/js/sweetalert.min.js"></script>
 <script src="assets/pages/jquery.projects_overview.init.js"></script>
 <script>
 function myFunction(id)
@@ -257,4 +254,43 @@ function myFunction(id)
         }
     });
 }
+</script>
+<script>
+@if(Session::has('message'))
+var type = "{{ Session::get('alert-type', 'info') }}";
+switch (type) {
+case 'info':
+    Swal.fire({
+        icon: 'info',
+        title: "{{ session('message') }}",
+        showConfirmButton: false,
+        timer: 2000
+    });
+    break;
+case 'warning':
+    Swal.fire({
+        icon: 'warning',
+        title: "{{ session('message') }}",
+        showConfirmButton: false,
+        timer: 2000
+    });
+    break;
+case 'success':
+    Swal.fire({
+        icon: 'success',
+        title: "{{ session('message') }}",
+        showConfirmButton: false,
+        timer: 2000
+    });
+    break;
+case 'error':
+    Swal.fire({
+        icon: 'error',
+        title: "{{ session('message') }}",
+        showConfirmButton: false,
+        timer: 2000
+    });
+    break;
+}
+@endif
 </script>

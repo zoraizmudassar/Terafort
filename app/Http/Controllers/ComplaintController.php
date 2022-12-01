@@ -43,29 +43,52 @@ class ComplaintController extends Controller
 
     public function Create(Request $request)
     {
-        $store = 1;
-        $category = Category::orderBy('id','DESC')->limit(5)->get();
-        $subCategory = SubCategory::orderBy('id','DESC')->get();
-        $complaint = Complaint::orderBy('id','DESC')->limit(1)->get();
-        if(count($complaint) == 0){
-            $result = $store + 0;
+        try{
+            $store = 1;
+            $category = Category::orderBy('id','DESC')->limit(5)->get();
+            $subCategory = SubCategory::orderBy('id','DESC')->get();
+            $complaint = Complaint::orderBy('id','DESC')->limit(1)->get();
+            if(count($complaint) == 0){
+                $result = $store + 0;
+            }
+            else{
+                $result = $store + $complaint[0]->id;
+            }
+            return view('admin.support-case')->with([
+                'category'=> $category, 
+                'subCategory'=> $subCategory, 
+                'complaintNo'=> $result
+            ]);
         }
-        else{
-            $result = $store + $complaint[0]->id;
+        catch(Exception $e){
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
         }
-        return view('admin.support-case')->with([
-            'category'=> $category, 
-            'subCategory'=> $subCategory, 
-            'complaintNo'=> $result
-        ]);
     }
 
     public function masterSetting(Request $request)
-    {
-        $user = user::orderBy('id','DESC')->get();
-        $Category = Category::orderBy('id','DESC')->limit(5)->get();
-        $SubCategory = SubCategory::orderBy('id','DESC')->get();
-        return view('admin.master-settings')->with(['data'=> $user, 'i' => 1, 'category'=> $Category, 'SubCategory'=> $SubCategory, 'j' => 1]);
+    {          
+        if(Auth::user()->role == 'Admin' || 'Support Administrator'){
+            try{
+                $user = user::orderBy('id','DESC')->get();
+                $Category = Category::orderBy('id','DESC')->limit(5)->get();
+                $SubCategory = SubCategory::orderBy('id','DESC')->get();
+                return view('admin.master-settings')->with(['data'=> $user, 'i' => 1, 'category'=> $Category, 'SubCategory'=> $SubCategory, 'j' => 1]);
+            }
+            catch(Exception $e){
+                $notification = array(
+                    'message' => $e->getMessage(),
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
+            }
+        }
+        else{
+            return $this->accessDenied();
+        }           
     }
     
     public function addCategory(Request $request)
@@ -211,7 +234,7 @@ class ComplaintController extends Controller
    
     public function manageComplaints(Request $request)
     {   
-        if(Auth::user()->id == 4){
+        if(Auth::user()->role == 'Admin' || 'Support Administrator'){
             try{
                 $diff = 'empty';
                 $lastupdate = Complaint::orderBy('id','DESC')->limit(1)->get();
@@ -263,11 +286,7 @@ class ComplaintController extends Controller
             }
         }
         else{
-            $notification = array(
-                'message' => 'Access Denied',
-                'alert-type' => 'warning'
-            );
-            return back()->with($notification);
+            return $this->accessDenied();
         }
     }
 
@@ -340,14 +359,14 @@ class ComplaintController extends Controller
                 'event_name' => $event
             );
             $user = Notification::create($notificationData);
-            $assignUsers = User::orderBy('id','ASC')->where('id', 4)->pluck('id');
+            $assignUsers = User::orderBy('id','ASC')->where('id', $request->id)->pluck('id');
             foreach($assignUsers as $assignUser){
                 $NotificationDetailData = array(
                     'notificationId' => $user['id'],
                     'assignUsers' => $assignUser,
                     'event_name' =>  $user['event_name'],
                     'url' => 'complaints-view',
-                    'complaint_id' => $create['id'],
+                    'complaint_id' => $create['complaint'],
                     'userid' => $id,
                 );
                 NotificationDetail::create($NotificationDetailData);
@@ -394,45 +413,54 @@ class ComplaintController extends Controller
 
     public function DisplayUser(Request $request)
     {
-        $file = 0; 
-        $chat = 0;
-        $sender = 0; 
-        $present = array();
-        $id = $_COOKIE["CD"];
-        $getUser = Complaint::orderBy('id','DESC')->where('id', $id)->pluck('user');
-        $user = User::orderBy('id','DESC')->where('id', $getUser[0])->get();
-        $SupportDetail = ComplaintDetail::orderBy('id','ASC')->where('complaint', $id)->get();
-        foreach($SupportDetail as $data){
-            $detail = User::orderBy('id','DESC')->limit(1)->where('id', $data['sender'])->get();
-            if(isset($detail[0])){
-                $result = $data['created_at']; 
-                $time = $result->format('g:i A');
-                $present[] = [
-                    'image' => $detail[0]->image,
-                    'name'  => $detail[0]->name,
-                    'data'  => $data,
-                    'time'  => $time
-                ]; 
+        try{
+            $file = 0; 
+            $chat = 0;
+            $sender = 0; 
+            $present = array();
+            $id = $_COOKIE["CD"];
+            $getUser = Complaint::orderBy('id','DESC')->where('id', $id)->pluck('user');
+            $user = User::orderBy('id','DESC')->where('id', $getUser[0])->get();
+            $SupportDetail = ComplaintDetail::orderBy('id','ASC')->where('complaint', $id)->get();
+            foreach($SupportDetail as $data){
+                $detail = User::orderBy('id','DESC')->limit(1)->where('id', $data['sender'])->get();
+                if(isset($detail[0])){
+                    $result = $data['created_at']; 
+                    $time = $result->format('g:i A');
+                    $present[] = [
+                        'image' => $detail[0]->image,
+                        'name'  => $detail[0]->name,
+                        'data'  => $data,
+                        'time'  => $time
+                    ]; 
+                }
             }
-        }
-        if(count($SupportDetail) > 0){
-            $chat = 1;
-        }
-        $data = Complaint::orderBy('id','DESC')->where('id', $id)->get();
-        if(count($data) == 1){
-            $img = $data[0]['doc'];
-            $ext = pathinfo($img, PATHINFO_EXTENSION);
-            $imageMimeTypes = array('png','jpg','jpeg');        
-            if(in_array($ext, $imageMimeTypes)) {
-                $file = 'image';
+            if(count($SupportDetail) > 0){
+                $chat = 1;
             }
+            $data = Complaint::orderBy('id','DESC')->where('id', $id)->get();
+            if(count($data) == 1){
+                $img = $data[0]['doc'];
+                $ext = pathinfo($img, PATHINFO_EXTENSION);
+                $imageMimeTypes = array('png','jpg','jpeg');        
+                if(in_array($ext, $imageMimeTypes)) {
+                    $file = 'image';
+                }
+            }
+            return view('complaint.display-complaints-user')->with(['data'=> $data[0], 'user'=> $user[0], 'file'=> $file, 'chat'=> $chat, 'SupportDetail'=> $present, 'userid'=> $user, 'C_id'=> $id]);
         }
-        return view('complaint.display-complaints-user')->with(['data'=> $data[0], 'user'=> $user[0], 'file'=> $file, 'chat'=> $chat, 'SupportDetail'=> $present, 'userid'=> $user, 'C_id'=> $id]);
+        catch(Exception $e){
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
     }
 
     public function Display(Request $request)
     {
-        if(Auth::user()->id == 4){
+        if(Auth::user()->role == 'Admin' || 'Support Administrator'){
             try{
                 $file = 0;
                 $chat = 0;
@@ -477,159 +505,188 @@ class ComplaintController extends Controller
             }
         }
         else{
-            $notification = array(
-                'message' => 'Access Denied',
-                'alert-type' => 'warning'
-            );
-            return back()->with($notification);
+            return $this->accessDenied();
         }
     }
 
     public function chat(Request $request,$complaint,$userid)
     {
-        $chat = 0;
-        $present = array();
-        $user = User::orderBy('id','DESC')->where('id', $userid)->get();
-        $SupportDetail = ComplaintDetail::orderBy('id','ASC')->where('complaint', $complaint)->get();
-        foreach($SupportDetail as $data){
-            $detail = User::orderBy('id','DESC')->limit(1)->where('id', $data['sender'])->get();
-            if(isset($detail[0])){
-                $result = $data['created_at']; 
-                $time = $result->format('g:i A');
-                $present[] = [
-                    'image' => $detail[0]->image,
-                    'name'  => $detail[0]->emp_name,
-                    'data'  => $data,
-                    'time'  => $time
-                ]; 
+        try{
+            $chat = 0;
+            $present = array();
+            $user = User::orderBy('id','DESC')->where('id', $userid)->get();
+            $SupportDetail = ComplaintDetail::orderBy('id','ASC')->where('complaint', $complaint)->get();
+            foreach($SupportDetail as $data){
+                $detail = User::orderBy('id','DESC')->limit(1)->where('id', $data['sender'])->get();
+                if(isset($detail[0])){
+                    $result = $data['created_at']; 
+                    $time = $result->format('g:i A');
+                    $present[] = [
+                        'image' => $detail[0]->image,
+                        'name'  => $detail[0]->emp_name,
+                        'data'  => $data,
+                        'time'  => $time
+                    ]; 
+                }
             }
+            if(count($SupportDetail) > 0){
+                $chat = 1;
+            }
+            return response()->json(['data'=> $data,'chat'=> $chat,'present'=> $present]);
         }
-        if(count($SupportDetail) > 0){
-            $chat = 1;
+        catch(Exception $e){
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
         }
-        return response()->json(['data'=> $data,'chat'=> $chat,'present'=> $present]);
     }
 
     public function chat1(Request $request,$complaint,$userid)
     {
-        $chat = 0;
-        $present = array();
-        $user = User::orderBy('id','DESC')->where('id', $userid)->get();
-        $SupportDetail = ComplaintDetail::orderBy('id','ASC')->where('complaint', $complaint)->get();
-        foreach($SupportDetail as $data){
-            $detail = User::orderBy('id','DESC')->limit(1)->where('id', $data['sender'])->get();
-            if(isset($detail[0])){
-                $result = $data['created_at']; 
-                $time = $result->format('g:i A');
-                $present[] = [
-                    'image' => $detail[0]->image,
-                    'name'  => $detail[0]->name,
-                    'data'  => $data,
-                    'time'  => $time
-                ]; 
+        try{
+            $chat = 0;
+            $present = array();
+            $user = User::orderBy('id','DESC')->where('id', $userid)->get();
+            $SupportDetail = ComplaintDetail::orderBy('id','ASC')->where('complaint', $complaint)->get();
+            foreach($SupportDetail as $data){
+                $detail = User::orderBy('id','DESC')->limit(1)->where('id', $data['sender'])->get();
+                if(isset($detail[0])){
+                    $result = $data['created_at']; 
+                    $time = $result->format('g:i A');
+                    $present[] = [
+                        'image' => $detail[0]->image,
+                        'name'  => $detail[0]->name,
+                        'data'  => $data,
+                        'time'  => $time
+                    ]; 
+                }
             }
+            if(count($SupportDetail) > 0){
+                $chat = 1;
+            }
+            return response()->json(['data'=> $data,'chat'=> $chat,'present'=> $present]);
         }
-        if(count($SupportDetail) > 0){
-            $chat = 1;
+        catch(Exception $e){
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
         }
-        return response()->json(['data'=> $data,'chat'=> $chat,'present'=> $present]);
     }
 
     public function Chats1(Request $request)
     {
-        date_default_timezone_set("Asia/karachi");
-        $time = date("h:i A");
-        $date = date("d-m-Y");
-        $id = $request->user_id;
-        $name = Auth::user()->name;
-        $image = Auth::user()->image;
-        $chat = 0;
-        $support_id = $request->complaint_id;
-        $userid = $request->user_id;
-        $status = Complaint::orderBy('id','DESC')->where('id', $request['complaint_id'])->pluck('status');
-        $event = "New Message";
-        if($request->status == 'closed'){
-            $event = "Complaint Solved";
-        }
-        if($request->status == 'in process'){
-            $event = "Complaint In Process";
-        }
-        $data = array(
-            'message' => $request->message,
-            'sender' => Auth::user()->id,
-            'receiver' => $id,
-            'complaint' => $request->id
-        );
-        $storeMessage = ComplaintDetail::create($data);
-        $notificationData = array(
-            'event_id' => $storeMessage['id'],
-            'event_name' => $event
-        );
-        $userData = Notification::create($notificationData);
-        // $assignUsers = User::orderBy('id','ASC')->where('id', $id)->pluck('id');
-        // foreach($assignUsers as $assignUser){
-            $NotificationDetailData = array(
-                'notificationId' => $userData['id'],
-                'assignUsers' => $id,
-                'event_name' =>  $userData['event_name'],
-                'url' => 'complaints-view-user',
-                'complaint_id' => $storeMessage['id'],
-                'userid' => Auth::user()->id,
+        try{
+            date_default_timezone_set("Asia/karachi");
+            $time = date("h:i A");
+            $date = date("d-m-Y");
+            $id = $request->user_id;
+            $name = Auth::user()->name;
+            $image = Auth::user()->image;
+            $chat = 0;
+            $support_id = $request->complaint_id;
+            $userid = $request->user_id;
+            $status = Complaint::orderBy('id','DESC')->where('id', $request['complaint_id'])->pluck('status');
+            $event = "New Message";
+            if($request->status == 'closed'){
+                $event = "Complaint Solved";
+            }
+            if($request->status == 'in process'){
+                $event = "Complaint In Process";
+            }
+            $data = array(
+                'message' => $request->message,
+                'sender' => Auth::user()->id,
+                'receiver' => $id,
+                'complaint' => $request->id
             );
-            NotificationDetail::create($NotificationDetailData);
-        // }
-        $user = User::orderBy('id','DESC')->where('id', $id)->get();
-        $SupportDetail = ComplaintDetail::orderBy('id','ASC')->where('complaint', $support_id)->get();
-        if(count($SupportDetail) > 0){
-            $chat = 1;
+            $storeMessage = ComplaintDetail::create($data);
+            $notificationData = array(
+                'event_id' => $storeMessage['id'],
+                'event_name' => $event
+            );
+            $userData = Notification::create($notificationData);
+                $NotificationDetailData = array(
+                    'notificationId' => $userData['id'],
+                    'assignUsers' => $id,
+                    'event_name' =>  $userData['event_name'],
+                    'url' => 'complaints-view-user',
+                    'complaint_id' => $storeMessage['complaint'],
+                    'userid' => Auth::user()->id,
+                );
+                NotificationDetail::create($NotificationDetailData);
+            $user = User::orderBy('id','DESC')->where('id', $id)->get();
+            $SupportDetail = ComplaintDetail::orderBy('id','ASC')->where('complaint', $support_id)->get();
+            if(count($SupportDetail) > 0){
+                $chat = 1;
+            }
+            $data = Complaint::orderBy('id','DESC')->where('id', $support_id)->get();
+            $variable = 1;
+            return response()->json($variable);   
         }
-        $data = Complaint::orderBy('id','DESC')->where('id', $support_id)->get();
-        $variable = 1;
-        return response()->json($variable);   
+        catch(Exception $e){
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
     }
 
     public function Chats(Request $request)
     {
-        date_default_timezone_set("Asia/karachi");
-        $time = date("h:i A");
-        $date = date("d-m-Y");
-        $id = $request->user_id;
-        $chat = 0;
-        $support_id = $request->complaint_id;
-        $status = Complaint::orderBy('id','DESC')->where('id', $request['complaint_id'])->pluck('status');
-        $event = "New Message";
-        if($request->status == 'closed'){
-            $event = "Complaint Solved";
-        }
-        if($request->status == 'in process'){
-            $event = "Complaint In Process";
-        }
-        $data = array(
-            'complaint' => $support_id,
-            'message' => $request->message,
-            'sender' => Auth::user()->id,
-            'receiver' => 4,
-        );
-        $storeMessage = ComplaintDetail::create($data);
-        $notificationData = array(
-            'event_id' => $storeMessage['id'],
-            'event_name' => 'New Message'
-        );
-        $user = Notification::create($notificationData);
-        $assignUsers = User::orderBy('id','ASC')->where('id', 4)->pluck('id');
-        foreach($assignUsers as $assignUser){
-            $NotificationDetailData = array(
-                'notificationId' => $user['id'],
-                'assignUsers' => $assignUser,
-                'event_name' =>  $user['event_name'],
-                'url' => 'complaints-view',
-                'complaint_id' => $storeMessage['id'],
-                'userid' => $id,
+        try{
+            date_default_timezone_set("Asia/karachi");
+            $time = date("h:i A");
+            $date = date("d-m-Y");
+            $id = $request->user_id;
+            $chat = 0;
+            $support_id = $request->complaint_id;
+            $status = Complaint::orderBy('id','DESC')->where('id', $request['complaint_id'])->pluck('status');
+            $event = "New Message";
+            if($request->status == 'closed'){
+                $event = "Complaint Solved";
+            }
+            if($request->status == 'in process'){
+                $event = "Complaint In Process";
+            }
+            $data = array(
+                'complaint' => $support_id,
+                'message' => $request->message,
+                'sender' => Auth::user()->id,
+                'receiver' => 4,
             );
-            NotificationDetail::create($NotificationDetailData);
+            $storeMessage = ComplaintDetail::create($data);
+            $notificationData = array(
+                'event_id' => $storeMessage['id'],
+                'event_name' => 'New Message'
+            );
+            $user = Notification::create($notificationData);
+            $assignUsers = User::orderBy('id','ASC')->where('id', 4)->pluck('id');
+            foreach($assignUsers as $assignUser){
+                $NotificationDetailData = array(
+                    'notificationId' => $user['id'],
+                    'assignUsers' => $assignUser,
+                    'event_name' =>  $user['event_name'],
+                    'url' => 'complaints-view',
+                    'complaint_id' => $storeMessage['complaint'],
+                    'userid' => $id,
+                );
+                NotificationDetail::create($NotificationDetailData);
+            }
+            $variable = 1;
+            return response()->json($variable);   
         }
-        $variable = 1;
-        return response()->json($variable);   
+        catch(Exception $e){
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
     }
 
     public function Complete(Request $request, $id)
@@ -645,11 +702,11 @@ class ComplaintController extends Controller
             $update = DB::table('complaints')->where('id', $id)->update(['status' => 4]);
             if($update){
                 $event = "Complaint Completed";
-                $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator')->where('status', 1)->pluck('id');
+                $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator')->pluck('id');
                 foreach($assignUsers as $assignUser){
                     $NotificationDetailData = array(
                         'notificationId' => $user['id'],
-                        'assign_users' => $assignUser,
+                        'assignUsers' => $assignUser,
                         'event_name' => $user['event_name'],
                         'url' => 'complaints-view',
                         'complaint_id' => $id,
@@ -672,5 +729,14 @@ class ComplaintController extends Controller
             );
             return back()->with($notification);
         }
+    }
+
+    public function accessDenied()
+    {
+        $notification = array(
+            'message' => 'Access Denied',
+            'alert-type' => 'warning'
+        );
+        return back()->with($notification);
     }
 }

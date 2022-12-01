@@ -1,4 +1,4 @@
-@extends('layouts.user-layout')
+@extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <style>
     #loader1 {  
@@ -175,7 +175,6 @@
     </div>                     
 </div>
 <script src="assets/js/customjquery.min.js"></script>
-<script src="assets/js/sweetalert.min.js"></script>
 <script>
     $(document).ready(function(){ 
         $("#loader1").fadeOut(1200);
@@ -186,38 +185,6 @@
         document.cookie='CD='+id; 
         location.href = "complaints-view-user";
     });
-@if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            Swal.fire({
-            icon: 'info',
-            title: "Error!",
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'warning':
-            Swal.fire({
-            icon: 'warning',
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'success':
-            Swal.fire({
-            icon: 'success',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-        case 'error':
-            Swal.fire({
-            icon: 'error',
-            title: "{{ session('message') }}",
-        });
-        break;
-    }
-  @endif
 </script>
 <script src="plugins/moment/moment.js"></script>
 <script src="plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>

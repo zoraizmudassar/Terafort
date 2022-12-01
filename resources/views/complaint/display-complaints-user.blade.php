@@ -1,4 +1,4 @@
-@extends('layouts.user-layout')
+@extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <?php
     $id = Auth::user()->id;
@@ -199,7 +199,7 @@
                                                     }
                                                 ?>
                                                 @if($result > 0)
-                                                    <h6 class="m-0" style="font-family: system-ui;">Complaint Close After</h6>
+                                                    <h6 class="m-0" style="font-family: system-ui;">Complaint will Autoclose After</h6>
                                                     <h6 class="float-right pl-1"> {{(int)$minutes}} <span style="font-weight: 100;">Minutes {{$result}} - <br> {{$expire}} </span>&#128344;</h6>
                                                     <h6 class="float-right pl-1">{{(int)$hours}}<span style="font-weight: 100;"> Hour </span>  </h6> 
                                                 @endif
@@ -416,7 +416,6 @@
     </div>
 </div>
 <script src="assets/js/customjquery.min.js"></script>
-<script src="assets/js/sweetalert.min.js"></script>
 <script src="plugins/summernote/summernote-bs4.min.js"></script>
 <script>
     $(document).ready(function(){ 
@@ -429,7 +428,7 @@
     });
     document.onkeydown = function (){
         if(window.event.keyCode == '13'){
-            submitForm();
+            // submitForm();
         }
     }
 </script>
@@ -439,11 +438,11 @@
             function formatAMPM(date){
                 var hours = date.getHours();
                 var minutes = date.getMinutes();
-                var ampm = hours >= 12 ? 'PM' : 'AM';
+                var ampm = hours >= 12?'PM':'AM';
                 hours = hours % 12;
-                hours = hours ? hours : 12;
-                minutes = minutes < 10 ? '0'+minutes : minutes;
-                var strTime = hours + ':' + minutes + ' ' + ampm;
+                hours = hours ? hours:12;
+                minutes = minutes < 10?'0'+minutes:minutes;
+                var strTime = hours+':'+minutes+' '+ampm;
                 return strTime;
             }
             var msg = $("#message").val();
@@ -486,42 +485,6 @@
             });
         });
     });
-</script>
-<script>
-@if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            Swal.fire({
-            icon: 'info',
-            title: "Error!",
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'warning':
-            Swal.fire({
-            icon: 'warning',
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'success':
-            Swal.fire({
-            icon: 'success',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-            timer: 2000
-        });
-        break;
-        case 'error':
-            Swal.fire({
-            icon: 'error',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-            timer: 2000
-        });
-        break;
-    }
-  @endif
 </script>
 <script>
     $(".complete").click(function(){

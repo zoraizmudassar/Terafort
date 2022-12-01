@@ -1,4 +1,4 @@
-@extends('layouts.user-layout')
+@extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <style>
@@ -126,45 +126,10 @@
     </div> 
 </div>
 <script src="assets/js/customjquery.min.js"></script>
-<script src="assets/js/sweetalert.min.js"></script>
 <script>
 $(document).ready(function(){ 
 	$("#loader1").fadeOut(1200);
 });
-@if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            Swal.fire({
-            icon: 'info',
-            title: "Error!",
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'warning':
-            Swal.fire({
-            icon: 'warning',
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'success':
-            Swal.fire({
-            icon: 'success',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-        case 'error':
-            Swal.fire({
-            icon: 'error',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-    }
-@endif
 </script>
 <script>
     $('#category').on('change', function(){

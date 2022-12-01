@@ -1,4 +1,4 @@
-@extends( (Auth::user()->id == "1") ? 'layouts.admin-layout' : 'layouts.user-layout')
+@extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <?php
 	// $id = Auth::user()->id;
@@ -209,13 +209,13 @@
                                             <td>{{$value['data']['category']}}</td>
                                             @if($value['data']['updated_at'] == NULL)
                                             <td>
-                                            <?php $result = $value['data']['created_at']; $delimiter = ' '; $words = explode($delimiter, $result); $day = $result->format('d-m-Y'); $time1 = $result->format('g:i A'); ?>
-                                            <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time1}}
+                                            <?php $result =  $value['data']['created_at']; $time = $result->format('g:i:s A'); $day = $result->format('d-M-Y'); ?>
+                                            <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
                                             </td>
                                             @else
                                             <td>
-                                            <?php $result = $value['data']['created_at']; $delimiter = ' '; $words = explode($delimiter, $result); ?>
-                                            <i class="mdi mdi-calendar-text-outline"></i> {{$words[1]}} <br><i class="mdi mdi-timer"></i> {{$words[0]}}
+                                            <?php $result =  $value['data']['created_at']; $time = $result->format('g:i:s A'); $day = $result->format('d-M-Y'); ?>
+                                            <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
                                             </td>
                                             @endif                                            
                                             <td>
@@ -228,8 +228,8 @@
                                             <td>
                                                 @if(isset($value['data']['updated_at']) && !empty($value['data']['updated_at'])) 
                                                     @if($value['data']['updated_at'] != $value['data']['created_at'])
-                                                        <?php $delimiter = ' '; $words = explode($delimiter, $value['data']['updated_at']); ?>
-                                                        <i class="mdi mdi-calendar-text-outline"></i> {{$words[0]}} <br><i class="mdi mdi-timer"></i> {{$words[1]}}
+                                                    <?php $result =  $value['data']['updated_at']; $time = $result->format('g:i:s A'); $day = $result->format('d-M-Y'); ?>
+                                                    <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
                                                     @else
                                                         -
                                                     @endif
@@ -261,40 +261,6 @@ $(document).ready(function(){
 	$("#loader1").fadeOut(1200);
     $("body").addClass("enlarge-menu");
 });
-@if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            Swal.fire({
-            icon: 'info',
-            title: "Error!",
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'warning':
-            Swal.fire({
-            icon: 'warning',
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'success':
-            Swal.fire({
-            icon: 'success',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-        case 'error':
-            Swal.fire({
-            icon: 'error',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-    }
-  @endif
 </script>
 <script>
     $(".viewweye").click(function(){

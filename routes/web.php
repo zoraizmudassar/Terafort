@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\RoleController;
+use App\Http\Middleware\Role;
+use App\Http\Middleware\Admin;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,13 +24,15 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function(){
     //Admin
-    Route::get('master-data', [AdminController::class, 'masterData'])->name('master-data');
-    Route::post('change-password-admin', [AdminController::class, 'changePasswordAdmin'])->name('change-password-admin');
-    Route::post('change-status-admin', [AdminController::class, 'changeStatusAdmin'])->name('change-status-admin');
-    Route::post('add-department', [AdminController::class, 'addDepartment'])->name('add-department');
-    Route::post('add-designation', [AdminController::class, 'addDesignation'])->name('add-designation');
-    Route::get('update-department/{value}/{id}', [AdminController::class, 'updateDepartment'])->name('update-department');
-    Route::get('update-designation/{value}/{id}', [AdminController::class, 'updateDesignation'])->name('update-designation');
+    Route::middleware([Admin::class])->group(function(){
+        Route::get('master-data', [AdminController::class, 'masterData'])->name('master-data');
+        Route::post('change-password-admin', [AdminController::class, 'changePasswordAdmin'])->name('change-password-admin');
+        Route::post('change-status-admin', [AdminController::class, 'changeStatusAdmin'])->name('change-status-admin');
+        Route::post('add-department', [AdminController::class, 'addDepartment'])->name('add-department');
+        Route::post('add-designation', [AdminController::class, 'addDesignation'])->name('add-designation');
+        Route::get('update-department/{value}/{id}', [AdminController::class, 'updateDepartment'])->name('update-department');
+        Route::get('update-designation/{value}/{id}', [AdminController::class, 'updateDesignation'])->name('update-designation');
+    });
     //User
     Route::get('create', [UserController::class, 'User'])->name('create');
     Route::post('user-create', [UserController::class, 'Create'])->name('user-create');
@@ -38,6 +42,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('edit-user', [UserController::class, 'Edituser'])->name('edit-user'); 
     Route::post('update-profile', [UserController::class, 'UpdateProfile'])->name('update-profile');
     Route::post('change-password', [UserController::class, 'changePassword'])->name('change-password');
+    Route::get('username/{id}', [UserController::class, 'username'])->name('username');
+    Route::get('email/{id}', [UserController::class, 'email'])->name('email');
     //Complaint
     Route::get('new-complaint', [ComplaintController::class, 'Create'])->name('new-complaint');
     Route::get('manage-complaints', [ComplaintController::class, 'manageComplaints'])->name('manage-complaints');
@@ -58,10 +64,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('support', [ComplaintController::class, 'Support'])->name('support');
     Route::get('completeComplaint/{id}', [ComplaintController::class, 'Complete']);
     //Role
-    Route::get('role-create', [RoleController::class, 'roleCreate'])->name('role-create');
-    Route::get('role-manage-new', [RoleController::class, 'roleManage'])->name('role-manage-new');
-    Route::get('role-manage-neww', [RoleController::class, 'roleManagew'])->name('role-manage-neww');
-    Route::post('roles-create', [RoleController::class, 'createRole'])->name('roles-create');
-    Route::post('roles-manage-ajax', [RoleController::class, 'roleManageAjax'])->name('roles-manage-ajax');
-    Route::get('ajax/{id}', [RoleController::class, 'ajax'])->name('ajax');
+    Route::middleware([Role::class])->group(function(){
+        Route::get('role-create', [RoleController::class, 'roleCreate'])->name('role-create');
+        Route::get('role-manage-new', [RoleController::class, 'roleManage'])->name('role-manage-new');
+        Route::get('role-manage-neww', [RoleController::class, 'roleManagew'])->name('role-manage-neww');
+        Route::post('roles-create', [RoleController::class, 'createRole'])->name('roles-create');
+        Route::post('roles-manage-ajax', [RoleController::class, 'roleManageAjax'])->name('roles-manage-ajax');
+        Route::get('ajax/{id}', [RoleController::class, 'ajax'])->name('ajax');
+    });
 });

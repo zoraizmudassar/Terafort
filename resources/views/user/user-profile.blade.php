@@ -1,4 +1,4 @@
-@extends( (Auth::user()->id == "1") ? 'layouts.admin-layout' : 'layouts.user-layout')
+@extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <?php
 	$id = Auth::user()->id;
@@ -320,39 +320,5 @@
 $(document).ready(function(){ 
 	$("#loader1").fadeOut(1200);
 });
-@if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            Swal.fire({
-            icon: 'info',
-            title: "Error!",
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'warning':
-            Swal.fire({
-            icon: 'warning',
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'success':
-            Swal.fire({
-            icon: 'success',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 3000
-        });
-        break;
-        case 'error':
-            Swal.fire({
-            icon: 'error',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 3000
-        });
-        break;
-    }
-@endif
 </script>
 @endsection

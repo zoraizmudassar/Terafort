@@ -1,4 +1,4 @@
-@extends( (Auth::user()->id == "2") ? 'layouts.admin-layout' : 'layouts.user-layout')
+@extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <link href="plugins/filter/magnific-popup.css" rel="stylesheet" type="text/css" />
 <?php
@@ -111,50 +111,6 @@
                                                 <input type="text" id="loginid" name="loginid" value="{{Auth::user()->id}}" hidden>
                                                 <input type="text" id="imageUser" name="imageUser" value="{{$image}}" hidden>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="media mb-4" style="float: right;">
-                                            @if($data['status'] == 4)
-                                            <div class="media-body align-self-center">
-                                                <?php
-                                                    date_default_timezone_set("Asia/karachi");
-                                                    $time = date("h:i A");
-                                                    $hour = date("G");
-                                                    $min = date("i");
-                                                    $month = $data->created_at;
-                                                    $delimiter = ' ';
-                                                    $words = explode($delimiter, $month);
-                                                    $datetime4 = new DateTime($data->updated_at);
-                                                    $delimiter = ' ';
-                                                    $words = explode($delimiter, $data->updated_at);
-                                                    $final = $words[1];                      
-                                                    $Complaindate = date('Y-m-d G:i:s');
-                                                    $date1 = strtotime($Complaindate);
-                                                    $static = strtotime('2022-10-12 9:18:43');
-                                                    $datetime = new DateTime('tomorrow');
-                                                    $today = $datetime->format('Y-m-d');
-                                                    $expire = $today." ".$final;
-                                                    $date2 = strtotime($expire);
-                                                    $diff = abs($date2 - $date1);
-                                                    $years = floor($diff / (365*60*60*24));
-                                                    $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-                                                    $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24) / (60*60*24));
-                                                    $hours = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24) / (60*60));
-                                                    $minutes = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60) / 60);
-                                                    $seconds = floor(($diff - $years * 365*60*60*24  - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60 - $minutes*60));
-                                                    $result = $date2 - $date1;
-                                                    if($result < 0){
-                                                        $update = DB::table('supports')->where('id', $data->id)->update(['status' => 'closed']);
-                                                    }
-                                                ?>
-                                                @if($result > 0)
-                                                    <h6 class="m-0" style="font-family: system-ui;">Complaint Close After</h6>
-                                                    <h6 class="float-right pl-1"> {{(int)$minutes}} <span style="font-weight: 100;">Minutes {{$data->id}} - {{$data->id}} - {{$data->id}} </span>&#128344;</h6>
-                                                    <h6 class="float-right pl-1">{{(int)$hours}}<span style="font-weight: 100;"> Hour </span>  </h6> 
-                                                @endif
-                                            </div>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -368,7 +324,7 @@
                                     <select style="border: 1px solid #bfbfbf;" id="status" name="status" class="form-control select.custom-select" required>
                                         <option value = 1 <?php if ($data['status'] == 1) echo "selected"; ?> disabled>No Action</option>
                                         <option value = 2 <?php if ($data['status'] == 2) echo "selected"; ?>>In Process</option>
-                                        <option value = 3 <?php if ($data['status'] == 3) echo "selected"; ?>>Complete</option>                                        
+                                        <option value = 3 <?php if ($data['status'] == 3) echo "selected"; ?>>Closed</option>                                        
                                 </select>
                                 </div>
                             </div>
@@ -388,7 +344,6 @@
     </div>
 </div>
 <script src="assets/js/customjquery.min.js"></script>
-<script src="assets/js/sweetalert.min.js"></script>
 <script src="plugins/summernote/summernote-bs4.min.js"></script>
 <script>
     $(document).ready(function(){ 
@@ -396,7 +351,7 @@
     });
     document.onkeydown = function (){
         if(window.event.keyCode == '13'){
-            submitForm();
+            // submitForm();
         }
     }
     setInterval(function()
@@ -458,42 +413,6 @@
             });
         });
     });
-</script>
-<script>
-@if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            Swal.fire({
-            icon: 'info',
-            title: "Error!",
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'warning':
-            Swal.fire({
-            icon: 'warning',
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'success':
-            Swal.fire({
-            icon: 'success',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-            timer: 2000
-        });
-        break;
-        case 'error':
-            Swal.fire({
-            icon: 'error',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-            timer: 2000
-        });
-        break;
-    }
-  @endif
 </script>
 <script src="plugins/filter/isotope.pkgd.min.js"></script>
 <script src="plugins/filter/masonry.pkgd.min.js"></script>

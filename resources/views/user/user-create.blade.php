@@ -1,4 +1,4 @@
-@extends( (Auth::user()->id == "1") ? 'layouts.admin-layout' : 'layouts.user-layout')
+@extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <style>
     .file-upload .file-upload-select
@@ -156,6 +156,7 @@
                                 @if($errors->has('email'))
                                     <span class="badge displayBadges py-2 mt-2 text-light" style="background: #cd3f3f; display: block; font-size: 13px !important;">{{ $errors->first('email') }}</span>
                                 @endif
+                                <span id="StrengthDisp4" style="font-size: 13px !important;" class="badge displayBadgess text-light py-2 mt-2"></span>     
                             </div>
                             <div class="col-sm-4 py-1">
                                 <label class="mt-3"><b style="color: #6c757d">Phone No</b></label>
@@ -240,7 +241,6 @@
     </div>
 </div>
 <script src="assets/js/customjquery.min.js"></script>
-<script src="assets/js/sweetalert.min.js"></script>
 <script>
     $(document).ready(function(){ 
         $("#loader1").fadeOut(1200);
@@ -268,10 +268,12 @@
     let password = document.getElementById('password')
     let confirmpassword = document.getElementById('confirm-password')
     let username = document.getElementById('username')
+    let email = document.getElementById('email')
     let strengthBadge = document.getElementById('StrengthDisp')
     let strengthBadge1 = document.getElementById('StrengthDisp1')
     let strengthBadge2 = document.getElementById('StrengthDisp2')
     let strengthBadge3 = document.getElementById('StrengthDisp3')
+    let strengthBadge4 = document.getElementById('StrengthDisp4')
     let mediumPassword = new RegExp('(?=.*[A-Z])(?=.*[0-9])(?=.{8,})')
     let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
     
@@ -327,6 +329,31 @@
         }
     });
 
+    email.addEventListener("input", () => {
+        Email(email.value);
+        function Email(email){
+            $.ajax({
+                    type: 'GET',
+                    url: 'email/'+email,
+                    dataType: "json",
+                    success: function(data){
+                        if(data){
+                            if(data == 1){
+                                strengthBadge4.style.display = 'block'
+                                strengthBadge4.style.backgroundColor = '#cd3f3f'
+                                strengthBadge4.textContent = 'Email Address Already taken'
+                            }
+                            else if(data == 2){
+                                strengthBadge4.style.display = 'block'
+                                strengthBadge4.style.backgroundColor = '#52a752'
+                                strengthBadge4.textContent = 'Email Address Available'
+                            }
+                        }
+                    }
+                });
+        }
+    });
+
 	confirmpassword.addEventListener("input", () => {
         if(password.value == confirmpassword.value){
             strengthBadge1.style.backgroundColor = '#52a752'
@@ -368,41 +395,5 @@
     }
     toggle.addEventListener('click', togglePassword, false);
     Confirmtoggle.addEventListener('click', toggleConfirmPassword, false);
-</script>
-<script>
-@if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            Swal.fire({
-            icon: 'info',
-            title: "Error!",
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'warning':
-            Swal.fire({
-            icon: 'warning',
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'success':
-            Swal.fire({
-            icon: 'success',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-        case 'error':
-            Swal.fire({
-            icon: 'error',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-    }
-@endif
 </script>
 @endsection

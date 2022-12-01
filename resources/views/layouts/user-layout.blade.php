@@ -99,7 +99,7 @@
     <div class="topbar-left">
         <a href="{{url('home')}}">
             <span>
-                <!-- <img src="img/photos/terafort.jpeg" width="35%" style="margin-top: 20px;" alt="logo-large" class="logo-lg"> -->
+                <img src="img/photos/terafort.jpeg" width="35%" style="margin-top: 20px;" alt="logo-large" class="logo-lg">
             </span>
         </a>
     </div>
@@ -120,6 +120,12 @@
                                 @else
                                 <span style="display: inline-flex; background: white;" class="w-100">
                                 @endif
+                            @elseif($val['data']->event_name == 'Complaint In Process')
+                                @if($val['data']->read_at != NULL)
+                                <span style="display: inline-flex; background: #d9e3eb7d;" class="w-100">
+                                @else
+                                <span style="display: inline-flex; background: white;" class="w-100">
+                                @endif
                             @else
                                 @if($val['data']->read_at != NULL)
                                 <span style="display: inline-flex; background: #d9e3eb7d;" class="w-100">
@@ -127,7 +133,7 @@
                                 <span style="display: inline-flex; background: white;" class="w-100">
                                 @endif
                             @endif
-                                    <a onclick="myFunction('{{ $val['data']->complaint_id }}');" class="dropdown-item py-3" id="notification">  
+                                    <a href="#" onclick="myFunction('{{ $val['data']->complaint_id }}');" class="dropdown-item py-3" id="notification">  
                                     <?php
                                         date_default_timezone_set("Asia/karachi");
                                         $time = date("h:i A");
@@ -154,6 +160,8 @@
                                             <img style="margin-left: -6px;" src="{{asset('uploads/appsetting/'.$val['image'])}}" alt="user" class="rounded-circle thumb-sm">
                                         @elseif($val['data']->event_name == 'New Complaint')
                                             <img style="margin-left: -6px;" src="img/avatars/avatar-2.jpg" alt="user" class="rounded-circle thumb-sm">
+                                        @elseif($val['data']->event_name == 'Complaint In Process')
+                                            <img style="margin-left: -6px;" src="img/avatars/avatar-2.jpg" alt="user" class="rounded-circle thumb-sm">
                                         @else
                                             <img style="margin-left: -6px;" src="img/avatars/avatar-2.jpg" alt="user" class="rounded-circle thumb-sm">
                                         @endif
@@ -161,11 +169,13 @@
                                                 @if($val['data']->read_at != NULL)
                                                 <h6 style="font-family: system-ui; text-transform: capitalize;" class="my-0 font-weight-normal text-dark">{{$val['data']->event_name}} </h6>
                                                 @else
-                                                <h6 style="font-family: system-ui; text-transform: capitalize;" class="my-0 font-weight-normal text-dark">{{$val['data']->event_name}} <small class="float-left"><i style="font-size: xx-small;" class="mdi mdi-circle-slice-8 mr-1 text-danger"></i></small> </h6>
+                                                <h6 style="font-family: system-ui; text-transform: capitalize;" class="my-0 font-weight-normal text-dark"><small class="float-left"><i style="font-size: xx-small;" class="mdi mdi-circle-slice-8 mr-1 text-danger"></i></small>{{$val['data']->event_name}}  </h6>
                                                 @endif
                                             @if($val['data']->event_name == 'Complaint Closed')
                                             <small style="font-family: system-ui;" class=" mb-0"> By <span style="font-weight: 600; font-family: system-ui; letter-spacing: 0.3px;"> {{$val['name']}} </span></small>
                                             @elseif($val['data']->event_name == 'Complaint In Process')
+                                            <small style="font-family: system-ui;" class=" mb-0"> By <span style="font-weight: 600; font-family: system-ui; letter-spacing: 0.3px;"> {{$val['name']}} </span></small>
+                                            @elseif($val['data']->event_name == 'Complaint Solved')
                                             <small style="font-family: system-ui;" class=" mb-0"> By <span style="font-weight: 600; font-family: system-ui; letter-spacing: 0.3px;"> {{$val['name']}} </span></small>
                                             @elseif($val['data']->event_name == 'Complaint Completed')
                                             <small style="font-family: system-ui;" class=" mb-0"> By <span style="font-weight: 600; font-family: system-ui; letter-spacing: 0.3px;"> {{$val['name']}} </span></small>
@@ -329,9 +339,12 @@
 <script src="plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
 <script src="plugins/tinymce/tinymce.min.js"></script>
 <script src="assets/pages/jquery.form-editor.init.js"></script> 
+<script src="assets/js/sweetalert.min.js"></script>
 <script>
 function myFunction(id)
 {
+    console.log("id");
+    console.log(id);
     var user = {!! json_encode((array)auth()->user()->id) !!};
     $.ajax({
             type: 'GET',
@@ -378,3 +391,42 @@ function myFunction111()
         });
 }
 </script>     
+<script>
+@if(Session::has('message'))
+var type = "{{ Session::get('alert-type', 'info') }}";
+switch (type) {
+case 'info':
+    Swal.fire({
+        icon: 'info',
+        title: "{{ session('message') }}",
+        showConfirmButton: false,
+        timer: 2000
+    });
+    break;
+case 'warning':
+    Swal.fire({
+        icon: 'warning',
+        title: "{{ session('message') }}",
+        showConfirmButton: false,
+        timer: 2000
+    });
+    break;
+case 'success':
+    Swal.fire({
+        icon: 'success',
+        title: "{{ session('message') }}",
+        showConfirmButton: false,
+        timer: 2000
+    });
+    break;
+case 'error':
+    Swal.fire({
+        icon: 'error',
+        title: "{{ session('message') }}",
+        showConfirmButton: false,
+        timer: 2000
+    });
+    break;
+}
+@endif
+</script>

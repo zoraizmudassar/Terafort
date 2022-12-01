@@ -1,4 +1,4 @@
-@extends( (Auth::user()->id == "1") ? 'layouts.admin-layout' : 'layouts.user-layout')
+@extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <style>
     .displayBadge
@@ -207,42 +207,5 @@
     toggle.addEventListener('click', togglePassword, false);
     Confirmtoggle.addEventListener('click', toggleConfirmPassword, false);
     Currenttoggle.addEventListener('click', toggleCurrentassword, false);
-</script>
-<script src="assets/js/sweetalert.min.js"></script>
-<script>
-@if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            Swal.fire({
-            icon: 'info',
-            title: "Error!",
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'warning':
-            Swal.fire({
-            icon: 'warning',
-            text: "{{ session('message') }}",
-        });
-        break;
-        case 'success':
-            Swal.fire({
-            icon: 'success',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-        case 'error':
-            Swal.fire({
-            icon: 'error',
-            title: "{{ session('message') }}",
-            showConfirmButton: false,
-			timer: 2000
-        });
-        break;
-    }
-@endif
 </script>
 @endsection

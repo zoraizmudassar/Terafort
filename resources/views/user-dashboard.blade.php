@@ -245,43 +245,9 @@
 <script src="plugins/lightpick/lightpick.js"></script>
 <script src="assets/pages/jquery.sales_dashboard.init.js"></script>
 <script>
-    $(document).ready(function(){ 
-        $("#loader1").fadeOut(500);
-    });
-    @if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch (type) {
-        case 'info':
-            Swal.fire({
-                icon: 'info',
-                title: "Error!",
-                text: "{{ session('message') }}",
-            });
-            break;
-        case 'warning':
-            Swal.fire({
-                icon: 'warning',
-                text: "{{ session('message') }}",
-            });
-            break;
-        case 'success':
-            Swal.fire({
-                icon: 'success',
-                title: "{{ session('message') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
-            break;
-        case 'error':
-            Swal.fire({
-                icon: 'error',
-                title: "{{ session('message') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
-            break;
-    }
-    @endif
+$(document).ready(function(){ 
+    $("#loader1").fadeOut(500);
+});
 </script>
 <script src="plugins/moment/moment.js"></script>
 <!-- <script src="plugins/apexcharts/apexcharts.min.js"></script>

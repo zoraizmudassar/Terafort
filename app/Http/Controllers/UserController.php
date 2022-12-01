@@ -354,4 +354,48 @@ class UserController extends Controller
             return back()->with($notification);
         }
     }
+
+    public function username($id)
+    {
+        try{
+            $update = User::where('username', $id)->pluck('username');
+            if(isset($update[0]) == $id){
+                $value = 1;
+                return response()->json($value);
+            }
+            else{
+                $value = 2;
+                return response()->json($value);
+            }
+        }
+        catch(Exception $e){
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+    }
+
+    public function email($id)
+    {
+        try{
+            $update = User::where('email', $id)->pluck('email');
+            if(isset($update[0]) == $id){
+                $value = 1;
+                return response()->json($value);
+            }
+            else{
+                $value = 2;
+                return response()->json($value);
+            }
+        }
+        catch(Exception $e){
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+    }
 }
