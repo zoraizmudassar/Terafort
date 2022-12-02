@@ -1,8 +1,7 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <style>
-    .file-upload .file-upload-select
-    {
+    .file-upload .file-upload-select{
         display: block;
         color: black;
         cursor: pointer;
@@ -12,19 +11,16 @@
         position: relative;
         border-radius: 6px;
     }
-    .file-upload .file-upload-select .file-select-button
-    {
+    .file-upload .file-upload-select .file-select-button{
         background: #bdc2c7;
         padding: 10px;
         display: inline-block;
     }
-    .file-upload .file-upload-select .file-select-name
-    {
+    .file-upload .file-upload-select .file-select-name{
         display: inline-block;
         padding: 10px;
     }
-    .file-upload .file-upload-select:hover .file-select-button
-    {
+    .file-upload .file-upload-select:hover .file-select-button{
         background: #324759;
         color: #ffffff;
         transition: all 0.2s ease-in-out;
@@ -32,25 +28,20 @@
         -webkit-transition: all 0.2s ease-in-out;
         -o-transition: all 0.2s ease-in-out;
     }
-    .file-upload .file-upload-select input[type="file"]
-    {
+    .file-upload .file-upload-select input[type="file"]{
         display: none;
     }
-    .displayBadge
-    {
+    .displayBadge{
         display: none; 
         text-align :center;
     }
-    .displayBadges
-    {
+    .displayBadges{
         text-align :center;
     }
-    .displayBadgess
-    {
+    .displayBadgess{
         text-align :center;
     }
-    .toggle
-    {
+    .toggle{
         background: none;
         border: none;
         color: grey;
@@ -63,25 +54,22 @@
     .fa{
         font-size: 1.1rem;
     }
-    .select2-container--default .select2-selection--single 
-    {
+    .select2-container--default .select2-selection--single{
         background-color: #fff;
         border: 1px solid #aaa;
         border-radius: 4px;
         height: 36px;
     }
-    #loader1
-    {  
+    #loader1{  
         position: fixed;  
         left: 0px;  
         top: 0px;  
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;  
     }
-    .yourclass::-webkit-input-placeholder
-    {
+    .yourclass::-webkit-input-placeholder{
         color: #6c757d;
     }
     .dropify-wrapper{
@@ -97,7 +85,7 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Create User</li>
+                        <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Create User</li>
                     </ol>
                 </div>
                 <h4 class="page-title">Create User</h4>
@@ -248,15 +236,13 @@
     let fileInput = document.getElementById("file-upload-input");
     let fileSelect = document.getElementsByClassName("file-upload-select")[0];
     fileSelect.onclick = function(){
-	    fileInput.click();
+        fileInput.click();
     }
     fileInput.onchange = function(){
-	    let filename = fileInput.files[0].name;
-	    let selectName = document.getElementsByClassName("file-select-name")[0];
-	    selectName.innerText = filename;
+        let filename = fileInput.files[0].name;
+        let selectName = document.getElementsByClassName("file-select-name")[0];
+        selectName.innerText = filename;
     }
-</script>
-<script>
     $('#username').on('keypress', function(e){
         if(e.which == 32){
             return false;
@@ -365,8 +351,6 @@
             strengthBadge1.textContent = 'Password No Matching'
         }
     });
-</script>
-<script>
     icon = document.getElementById('eyeIcon');
     toggle = document.getElementById('btnToggle');
     passwordInput = document.getElementById('password');

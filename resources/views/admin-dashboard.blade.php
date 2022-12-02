@@ -67,7 +67,7 @@
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        /* background: url("/img/photos/terafort.jpeg") 50% 50% no-repeat black;    */
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;
     }
 </style>
 <div id="loader1" class="rotate" width="100" height="100"></div>
@@ -75,7 +75,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">Dashboard</h4>
+                    <h4 class="page-title">Welcome, {{Auth::user()->name}}</h4>
                 </div>
             </div>
         </div>
@@ -88,11 +88,7 @@
                                 <div class="icon-info mb-3">
                                     <i class="fas fa-ticket-alt bg-soft-danger"></i>
                                 </div>
-                                @if(isset($complain['null']))
-                                <h3 class="text-dark" id="noAction">{{$complain['null']}}</h3>
-                                @else
-                                <h3 class="text-dark" id="noAction">0</h3>
-                                @endif
+                                <h3 class="text-dark" id="noAction">{{$noAction}}</h3>
                                 <h6 class="font-14 text-dark">No Action</h6>                                                                                                                            
                             </div>
                         </div>
@@ -103,11 +99,7 @@
                                 <div class="icon-info mb-3">
                                     <i class="dripicons-hourglass card-eco-icon text-warning align-self-center bg-soft-warning"></i>
                                 </div>
-                                @if(isset($complain['process']))
-                                <h3 class="text-dark" id="Process">{{$complain['process']}}</h3>
-                                @else
-                                <h3 class="text-dark" id="noAction">0</h3>
-                                @endif
+                                <h3 class="text-dark" id="Process">{{$Process}}</h3>
                                 <h6 class="font-14 text-dark">In Process</h6>                                                                                                                            
                             </div>
                         </div>
@@ -118,11 +110,7 @@
                                 <div class="icon-info mb-3">
                                     <i class="dripicons-checkmark card-eco-icon text-secondary align-self-center bg-soft-secondary"></i>
                                 </div>
-                                @if(isset($complain['final']))
-                                <h3 class="text-dark" id="Process">{{$complain['final']}}</h3>
-                                @else
-                                <h3 class="text-dark" id="noAction">0</h3>
-                                @endif
+                                <h3 class="text-dark" id="final">{{$complete}}</h3>
                                 <h6 class="font-14 text-dark">Closed</h6>                                                                                                                            
                             </div>
                         </div>
@@ -133,11 +121,7 @@
                                 <div class="icon-info mb-3">
                                     <i class="mdi mdi-checkbox-multiple-marked-circle-outline bg-soft-success"></i>
                                 </div>
-                                @if(isset($complain['complete']))
-                                <h3 class="text-dark" id="Process">{{$complain['complete']}}</h3>
-                                @else
-                                <h3 class="text-dark" id="noAction">0</h3>
-                                @endif
+                                <h3 class="text-dark" id="complete">{{$final}}</h3>
                                 <h6 class="font-14 text-dark">Complete</h6>                                                                                                                            
                             </div>
                         </div>
@@ -148,12 +132,12 @@
                                 <div class="icon-info mb-3">
                                     <i class="mdi mdi-file-document-box-multiple bg-soft-dark"></i>
                                 </div>
-                                <h3 class="text-dark" id="complete">0</h3>
-                                <h6 class="font-14 text-dark">total</h6>                                                                                                                            
+                                <h3 class="text-dark" id="total">{{$total}}</h3>
+                                <h6 class="font-14 text-dark">Total</h6>                                                                                                                            
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-2" hidden>
                         <div class="card dash-data-card text-center" style="max-height: 86%;">
                             <div class="card-body">   
                                 <div class="row py-2">
@@ -172,7 +156,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="apexchart-wrapper">
-                            <div id="budgets_chart" class="apex-charts"></div>
+                            <div id="budgets_chartt" class="apex-charts"></div>
                         </div>
                     </div>                                                                                             
                 </div>

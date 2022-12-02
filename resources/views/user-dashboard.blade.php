@@ -109,7 +109,7 @@
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        /* background: url("/img/photos/terafort.jpeg") 50% 50% no-repeat black;   */
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;
     }
     .table_row:hover
     {
@@ -144,7 +144,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="page-title-box">
-                <h4 class="page-title">Dashboard</h4>
+                <h4 class="mt-0 mb-0">Welcome, {{Auth::user()->name}}</h4>
             </div>
         </div>
     </div>

@@ -31,7 +31,7 @@
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;    
     }
 </style>
 <div id="loader1" class="rotate" width="100" height="100"></div>
@@ -42,7 +42,7 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Master Settings</li>
+                        <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Master Settings</li>
                     </ol>
                 </div>
                 <h4 class="page-title">Master Settings</h4>
@@ -171,6 +171,5 @@
     $(document).ready(function(){ 
         $("#loader1").fadeOut(1200);
     });
-</script>
 </script>
 @endsection

@@ -1,20 +1,20 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <style>
-    #loader1 {  
+    #loader1{  
         position: fixed;  
         left: 0px;  
         top: 0px;  
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;    
     }
-    .apexcharts-legend.position-bottom.left, .apexcharts-legend.position-top.left, .apexcharts-legend.position-right, .apexcharts-legend.position-left {
+    .apexcharts-legend.position-bottom.left, .apexcharts-legend.position-top.left, .apexcharts-legend.position-right, .apexcharts-legend.position-left{
         align-items: flex-start;
         justify-content: flex-start;
     }
-    .apexcharts-legend.position-bottom.center, .apexcharts-legend.position-top.center {
+    .apexcharts-legend.position-bottom.center, .apexcharts-legend.position-top.center{
         justify-content: center;
         display: none;
     }
@@ -147,15 +147,17 @@
                                             </td>
                                             <td>{{$value['data']['category']}}</td>
                                             <td>
-                                                <?php $result = $value['data']['created_at']; $delimiter = ' '; $words = explode($delimiter, $result); ?>
-                                                <i class="mdi mdi-calendar-text-outline"></i> {{$words[1]}} <br><i class="mdi mdi-timer"></i> {{$words[0]}}
+                                                <?php $result = $value['data']['created_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
+                                                <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
                                             </td>
                                             <td>{{$value['data']['approve_by']}}</td>
                                             <td>
-                                                @if(isset($value['data']['update_time']) && !empty($value['data']['update_time'])) 
-                                                    <?php $delimiter = ' '; $words = explode($delimiter, $value['data']['update_time']); ?>
-                                                    <i class="mdi mdi-calendar-text-outline"></i> {{$words[0]}} <br><i class="mdi mdi-timer"></i> {{$words[1]}}
-                                                @endif                                                
+                                                @if(isset($value['data']['updated_at']) && !empty($value['data']['updated_at'])) 
+                                                    <?php $result = $value['data']['created_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
+                                                    <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
+                                                @else
+                                                -
+                                                @endif                                            
                                             </td>
                                             <td> 
                                                 <span data-id="{{$value['data']['id']}}" class="badge btn-sm badge-dark p-0 rounded-circle mx-1 SessionIdC" style="cursor: pointer">

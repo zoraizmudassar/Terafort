@@ -21,175 +21,191 @@ class UserController extends Controller
 {
     public function User(Request $request)
     {
-        try{
-            $department = Department::orderBy('id','DESC')->get();
-            $designation = Designation::orderBy('id','DESC')->get();
-            $role = Role::orderBy('id','DESC')->get();
-            return view('user.user-create',compact('designation','department','role'));
+        if(Auth::user()->role == 'Admin'){
+            try{
+                $department = Department::orderBy('name','ASC')->get();
+                $designation = Designation::orderBy('name','ASC')->get();
+                $role = Role::orderBy('name','ASC')->get();
+                return view('user.user-create',compact('designation','department','role'));
+            }
+            catch(Exception $e){
+                $notification = array(
+                    'message' => $e->getMessage(),
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
+            }
         }
-        catch(Exception $e){
-            $notification = array(
-                'message' => $e->getMessage(),
-                'alert-type' => 'error'
-            );
-            return back()->with($notification);
+        else{
+            return $this->accessDenied();
         }
     }
 
     public function Create(Request $request)
     {
-        try{
-            $input = $request->all();
-            $filename = "0";
-            if($request->image){
-                $file = $request->file('image');
-                $extension = $file->getClientOriginalExtension(); 
-                $filename = time() . '.' . $extension;
-                $file->move('uploads/appsetting/', $filename);
+        if(Auth::user()->role == 'Admin'){
+            try{
+                $input = $request->all();
+                $filename = "Profile.png";
+                if($request->image){
+                    $file = $request->file('image');
+                    $extension = $file->getClientOriginalExtension(); 
+                    $filename = time() . '.' . $extension;
+                    $file->move('uploads/appsetting/', $filename);
+                }
+                Validator::make($input, [
+                    'name' => ['required', 'string', 'max:15'],
+                    'username' => ['required', 'string', 'max:15'],
+                    'firstname' => ['required', 'string', 'max:10'],
+                    'lastname' => ['required', 'string', 'max:10'],
+                    'phone' => ['required'],
+                    'department' => ['required'],
+                    'designation' => ['required'],
+                    'role' => ['required'],
+                    'status' => ['required'],
+                    'image' => ['required'],
+                    'email' => ['required', 'string', 'email', 'max:30', 'unique:users'],
+                    'password' => ['required', 'string', 'min:8', 'confirmed'],
+                ]);        
+                User::create([
+                    'name' => $input['name'],
+                    'username' => $input['username'],
+                    'firstname' => $input['firstname'],
+                    'lastname' => $input['lastname'],
+                    'email' => $input['email'],
+                    'phone' => $input['phone'],
+                    'department' => $input['department'],
+                    'designation' => $input['designation'],
+                    'role' => $input['role'],
+                    'status' => $input['status'],
+                    'image' => $filename,
+                    'password' => Hash::make($input['password']),
+                ]);
+                $notification = array(
+                    'message' => 'User Created',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('manage-user')->with($notification); 
             }
-            Validator::make($input, [
-                'name' => ['required', 'string', 'max:15'],
-                'username' => ['required', 'string', 'max:15'],
-                'firstname' => ['required', 'string', 'max:10'],
-                'lastname' => ['required', 'string', 'max:10'],
-                'phone' => ['required'],
-                'department' => ['required'],
-                'designation' => ['required'],
-                'role' => ['required'],
-                'status' => ['required'],
-                'image' => ['required'],
-                'email' => ['required', 'string', 'email', 'max:30', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ]);        
-            User::create([
-                'name' => $input['name'],
-                'username' => $input['username'],
-                'firstname' => $input['firstname'],
-                'lastname' => $input['lastname'],
-                'email' => $input['email'],
-                'phone' => $input['phone'],
-                'department' => $input['department'],
-                'designation' => $input['designation'],
-                'role' => $input['role'],
-                'status' => $input['status'],
-                'image' => $filename,
-                'password' => Hash::make($input['password']),
-            ]);
-            $notification = array(
-                'message' => 'User Created',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('manage-user')->with($notification); 
+            catch(Exception $e){
+                $notification = array(
+                    'message' => $e->getMessage(),
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
+            }
         }
-        catch(Exception $e){
-            $notification = array(
-                'message' => $e->getMessage(),
-                'alert-type' => 'error'
-            );
-            return back()->with($notification);
+        else{
+            return $this->accessDenied();
         }
     }
 
     public function Display(Request $request)
     {
-        try{
-            $data = [];
-            $id = Auth::user()->id;
-            $user = User::find($id);
-            $department = $user->department;
-            if($department == "Human Resources"){
-                $data = User::orderBy('id','DESC')->where('id', '!=', auth()->id())->get();
-                return view('admin.manage-user',compact('data'))->with('i', 1);
+        if(Auth::user()->role == 'Admin'){
+            try{
+                $data = [];
+                $id = Auth::user()->id;
+                $data = User::orderBy('name','ASC')->where('id', '!=', auth()->id())->get();
+                return view('user.user-manage',compact('data'))->with('i', 1);
             }
-            elseif($id == 1){
-                $data = User::orderBy('id','DESC')->where('id', '!=', auth()->id())->get();
-                return view('admin.manage-user',compact('data'))->with('i', 1);
-            }
-            elseif($id != 2){
-                $data = User::orderBy('id','DESC')->where('id', '!=', auth()->id())->where('department', $department)->get();
-                return view('admin.manage-user',compact('data'))->with('i', 1);
-            }
-            else{
-                dd("Else");
+            catch(Exception $e){
+                $notification = array(
+                    'message' => $e->getMessage(),
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
             }
         }
-        catch(Exception $e){
-            $notification = array(
-                'message' => $e->getMessage(),
-                'alert-type' => 'error'
-            );
-            return back()->with($notification);
+        else{
+            return $this->accessDenied();
         }
     }
 
     public function userEdit(Request $request)
     {
-        try{
-            $id = $request->id;
-            $user = User::find($id);
-            $userRole = $user['role'];
-            $userImage = $user['image'];
-            $userDepartment = $user['department'];
-            $userDesignation = $user['designation'];
-            $role = Role::orderBy('id','DESC')->get();
-            $department = Department::orderBy('id','DESC')->get();
-            $designation = Designation::orderBy('id','DESC')->get();
-            return view('user.user-edit',compact('id','user','userRole','userDepartment','userDesignation','role','department','designation','userImage'));
+        if(Auth::user()->role == 'Admin'){
+            try{
+                $id = $request->id;
+                $user = User::find($id);
+                $role = Role::orderBy('id','DESC')->get();
+                $department = Department::orderBy('id','DESC')->get();
+                $designation = Designation::orderBy('id','DESC')->get();
+                return view('user.user-edit',compact('id','user','role','department','designation'));
+            }
+            catch(Exception $e){
+                $notification = array(
+                    'message' => $e->getMessage(),
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
+            }
         }
-        catch(Exception $e){
-            $notification = array(
-                'message' => $e->getMessage(),
-                'alert-type' => 'error'
-            );
-            return back()->with($notification);
+        else{
+            return $this->accessDenied();
         }
     }
 
     public function Edituser(Request $request)
     {
-        try{
-            $id = $request->id;
-            $filename = "0";
-            if($request->image){
-                $file = $request->file('image');
-                $extension = $file->getClientOriginalExtension(); 
-                $filename = time() . '.' . $extension;
-                $file->move('uploads/appsetting/', $filename);
-                $data = array(
-                    'name' => $request->username,
-                    'email' => $request->email,            
-                    'role' => $request->role,
-                    'image' => $request->image,
-                );
+        if(Auth::user()->role == 'Admin'){
+            try{
+                $id = $request->id;
+                $filename = "Profile.png";
+                if($request->image){
+                    $file = $request->file('image');
+                    $extension = $file->getClientOriginalExtension(); 
+                    $filename = time() . '.' . $extension;
+                    $file->move('uploads/appsetting/', $filename);
+                    $data = array(
+                        'name' => $request->name,
+                        'username' => $request->username,
+                        'firstname' => $request->firstname,
+                        'lastname' => $request->lastname,
+                        'email' => $request->email,
+                        'department' => $request->department,            
+                        'designation' => $request->designation,            
+                        'role' => $request->role,
+                        'image' => $request->image,
+                    );
+                }
+                else{
+                    $data = array(
+                        'name' => $request->name,
+                        'username' => $request->username,
+                        'firstname' => $request->firstname,
+                        'lastname' => $request->lastname,
+                        'email' => $request->email,
+                        'department' => $request->department,            
+                        'designation' => $request->designation,            
+                        'role' => $request->role,
+                    );
+                }
+                $update = User::where('id', $id)->update($data);
+                if($update){
+                    $notification = array(
+                        'message' => 'User Updated!',
+                        'alert-type' => 'success'
+                    );
+                }
+                else{
+                    $notification = array(
+                        'message' => 'Something Went Wrong',
+                        'alert-type' => 'error'
+                    );
+                }
+                return redirect()->route('manage-user')->with($notification);
             }
-            else{
-                $data = array(
-                    'name' => $request->username,
-                    'email' => $request->email,            
-                    'role' => $request->role,
-                );
-            }
-            $update = User::where('id', $id)->update($data);
-            if($update){
+            catch(Exception $e){
                 $notification = array(
-                    'message' => 'User Updated!',
-                    'alert-type' => 'success'
-                );
-            }
-            else{
-                $notification = array(
-                    'message' => 'Something Went Wrong',
+                    'message' => $e->getMessage(),
                     'alert-type' => 'error'
                 );
+                return back()->with($notification);
             }
-            return redirect()->route('manage-user')->with($notification);
         }
-        catch(Exception $e){
-            $notification = array(
-                'message' => $e->getMessage(),
-                'alert-type' => 'error'
-            );
-            return back()->with($notification);
+        else{
+            return $this->accessDenied();
         }
     }
 
@@ -203,7 +219,7 @@ class UserController extends Controller
     public function UpdateProfile(Request $request)
     {
         try{
-            $filename = "0";
+            $filename = "Profile.png";
             if($request->image){
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension(); 
@@ -396,6 +412,32 @@ class UserController extends Controller
                 'alert-type' => 'error'
             );
             return back()->with($notification);
+        }
+    }
+
+    public function delete(Request $request, $id)
+    {
+        if(Auth::user()->role == 'Admin'){
+            try{
+                $users = User::where('id', $id)->delete();
+                if($users){
+                    return response()->json($users);
+                }
+                else{
+                    $error = 400;
+                    return response()->json($error);
+                }
+            }
+            catch(Exception $e){
+                $notification = array(
+                    'message' => $e->getMessage(),
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);
+            }
+        }
+        else{
+            return $this->accessDenied();
         }
     }
 }

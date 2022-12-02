@@ -1,26 +1,14 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
-<?php
-	// $id = Auth::user()->id;
-	// $UserDetail = DB::table("users")->where("id", $id)->pluck('userrole');
-	// $UserDetail1 = DB::table("newroles")->where("name", $UserDetail)->get();
-	// $obj = json_decode (json_encode ($UserDetail1), FALSE);
-    // $storeData = [];
-    // foreach($obj as $dataa){
-    //     $storeData[$dataa->role_name] = $dataa->value; 
-    // }
-    // print_r($storeData);
-?>
 <style>
-    #loader1 
-    {  
+    #loader1{  
         position: fixed;  
         left: 0px;  
         top: 0px;  
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        /* background: url("/img/photos/terafort.jpeg") 50% 50% no-repeat black;    */
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;  
     }
     .apexcharts-legend.position-bottom.left, .apexcharts-legend.position-top.left, .apexcharts-legend.position-right, .apexcharts-legend.position-left {
         align-items: flex-start;
@@ -209,37 +197,33 @@
                                             <td>{{$value['data']['category']}}</td>
                                             @if($value['data']['updated_at'] == NULL)
                                             <td>
-                                            <?php $result =  $value['data']['created_at']; $time = $result->format('g:i:s A'); $day = $result->format('d-M-Y'); ?>
-                                            <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
+                                                <?php $result = $value['data']['created_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
+                                                <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
                                             </td>
                                             @else
                                             <td>
-                                            <?php $result =  $value['data']['created_at']; $time = $result->format('g:i:s A'); $day = $result->format('d-M-Y'); ?>
-                                            <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
+                                                <?php $result = $value['data']['created_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
+                                                <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
                                             </td>
                                             @endif                                            
                                             <td>
-                                            @if($value['data']['approve_by'] != NULL)
-                                                {{$value['data']['approve_by']}}
+                                                @if($value['data']['approve_by'] != NULL)
+                                                    {{$value['data']['approve_by']}}
                                                 @else
                                                 -
                                                 @endif
                                             </td>
                                             <td>
                                                 @if(isset($value['data']['updated_at']) && !empty($value['data']['updated_at'])) 
-                                                    @if($value['data']['updated_at'] != $value['data']['created_at'])
-                                                    <?php $result =  $value['data']['updated_at']; $time = $result->format('g:i:s A'); $day = $result->format('d-M-Y'); ?>
+                                                    <?php $result = $value['data']['created_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
                                                     <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
-                                                    @else
-                                                        -
-                                                    @endif
                                                 @else
                                                 -
-                                                @endif
+                                                @endif    
                                             </td>
                                             <td> 
-                                                <span data-id="{{$value['data']['id']}}" class="badge btn-sm cursor-pointer SessionIdC badge-dark rounded-circle" style="cursor: pointer; font-size: small; font-weight: 500;">
-                                                    <i class="align-middle mb-1 mt-1 mx-1 cursor-pointer" style="size:1px;" data-feather="eye"></i>
+                                                <span data-id="{{$value['data']['id']}}" class="badge btn-sm cursor-pointer SessionIdC badge-dark rounded-circle p-0" style="cursor: pointer; font-size: small; font-weight: 500;">
+                                                    <i class="align-middle mb-1 mt-1 mx-1 cursor-pointer w-50" style="size:1px;" data-feather="eye"></i>
                                                 </span>
                                             </td> 
                                         </tr>
@@ -257,12 +241,10 @@
 <script src="assets/js/customjquery.min.js"></script>
 <script src="assets/js/sweetalert.min.js"></script>
 <script>
-$(document).ready(function(){ 
-	$("#loader1").fadeOut(1200);
-    $("body").addClass("enlarge-menu");
-});
-</script>
-<script>
+    $(document).ready(function(){ 
+        $("#loader1").fadeOut(1200);
+        $("body").addClass("enlarge-menu");
+    });
     $(".viewweye").click(function(){
         var id = $(this).attr("data-id");
         $("#delete-user").attr("data-id", id);

@@ -7,7 +7,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="shortcut icon" href="img/photos/modified.png">
+    <link rel="shortcut icon" href="img/photos/terafort2.png">
     <link href="plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">    
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/jquery-ui.min.css" rel="stylesheet">

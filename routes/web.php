@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('change-password', [UserController::class, 'changePassword'])->name('change-password');
     Route::get('username/{id}', [UserController::class, 'username'])->name('username');
     Route::get('email/{id}', [UserController::class, 'email'])->name('email');
+    Route::get('delete/{id}', [UserController::class, 'delete'])->name('delete');
     //Complaint
     Route::get('new-complaint', [ComplaintController::class, 'Create'])->name('new-complaint');
     Route::get('manage-complaints', [ComplaintController::class, 'manageComplaints'])->name('manage-complaints');
@@ -63,6 +64,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('category/{id}', [ComplaintController::class, 'Category'])->name('category');
     Route::post('support', [ComplaintController::class, 'Support'])->name('support');
     Route::get('completeComplaint/{id}', [ComplaintController::class, 'Complete']);
+    Route::get('rejectComplaint/{id}', [ComplaintController::class, 'Reject']);
     //Role
     Route::middleware([Role::class])->group(function(){
         Route::get('role-create', [RoleController::class, 'roleCreate'])->name('role-create');

@@ -1,17 +1,14 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <style>
-    .displayBadge
-    {
+    .displayBadge{
         display: none; 
         text-align :center;
     }
-	.displayBadges
-    {
+	.displayBadges{
         text-align :center;
     }
-    .toggle 
-    {
+    .toggle{
         background: none;
         border: none;
         color: grey;
@@ -21,22 +18,19 @@
         top: 0.85em;
         z-index: 9;
     }
-    .fa
-    {
+    .fa{
         font-size: 1.1rem;
     }
-    #loader1 
-    {  
+    #loader1{  
         position: fixed;  
         left: 0px;  
         top: 0px;  
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;  
     }
-    .yourclass::-webkit-input-placeholder
-    {
+    .yourclass::-webkit-input-placeholder{
         color: #6c757d;
     }
 </style>
@@ -48,7 +42,7 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Change Password</li>
+                        <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Change Password</li>
                     </ol>
                 </div>
                 <h4 class="page-title">Change Password</h4>

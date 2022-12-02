@@ -8,30 +8,26 @@
 ?>
 <link href="plugins/filter/magnific-popup.css" rel="stylesheet" type="text/css" />
 <style>
-    .btn-outline:active, .btn-outline:visited
-    {
+    .btn-outline:active, .btn-outline:visited{
         background: linear-gradient(14deg, #fc5c04 0%, #f96c07);
         border: 1px solid #f96c07 !important;
         color: white;
     }
-    .media .media-body.reverse .chat-msg p
-    {
+    .media .media-body.reverse .chat-msg p{
         background-color: #6d81f5;
         color: white;
         display: inline-block;
         margin-bottom: 0;
         border-radius: 20px;
     }
-    .media .media-body .chat-msg p
-    {
+    .media .media-body .chat-msg p{
         background-color: #f8fafd;
         color: #303e67;
         display: inline-block;
         margin-bottom: 0;
         border-radius: 20px;
     }
-    #chatcard
-    {
+    #chatcard{
         padding: 20px;
         background-image: url("img/photos/pattern.png");
         background-repeat: repeat;
@@ -40,37 +36,32 @@
         background-color: #edf0f5;
         overflow: auto;
     }
-    .chat-footer
-    {
+    .chat-footer{
         border-top: 1px solid #f1f5fa;
         background-color: #fff;
         padding: 20px;
         left: 0;
         bottom: 0;
     }
-    .chat-footer .chat-admin
-    {
+    .chat-footer .chat-admin{
         position: absolute;
         top: -40px;
         /* border: 2px solid #303e67; */
         border-radius: 50%;
     }
-    .yourclass::-webkit-input-placeholder
-    {
+    .yourclass::-webkit-input-placeholder{
         color: #6c757d;
     }
-    #loader1 
-    {  
+    #loader1{  
         position: fixed;  
         left: 0px;  
         top: 0px;  
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;   
     }
-    .mfp-container 
-    {
+    .mfp-container{
         cursor: auto
     }
 </style>
@@ -453,10 +444,7 @@
                 type: 'post',
                 url: 'chats/',
                 data: $('form').serialize(),
-                success: function()
-                {
-                    // $(".chatcard1").show();
-                    // $(".chatcard2").hide();
+                success: function(){
                     var complaint = $("#complaint").val();
                     document.getElementById("Chatform").reset();
                     var userid = $("#userid").val();
@@ -537,14 +525,14 @@
                     if(data == 1){
                         Swal.fire({
                             icon: 'success',
-                            title: 'Complaint Re-Opened!',
+                            title: 'Complaint Re-Opened',
                         });
                         location.reload();
                     }
                     else if(data == 400){
                         Swal.fire({
                             icon: 'error',
-                            title: 'Something went wrong!',
+                            title: 'Something went wrong',
                         });
                     }
                 }

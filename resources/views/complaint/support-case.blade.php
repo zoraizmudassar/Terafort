@@ -2,17 +2,14 @@
 @section('content')
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <style>
-    .displayBadge
-    {
+    .displayBadge{
         display: none; 
         text-align :center;
     }
-    .displayBadges
-    {
+    .displayBadges{
         text-align :center;
     }
-    .toggle
-    {
+    .toggle{
         background: none;
         border: none;
         color: grey;
@@ -22,23 +19,20 @@
         top: 2.85em;
         z-index: 9;
     }
-    .fa
-    {
+    .fa{
         font-size: 1.1rem;
     }
-    .yourclass::-webkit-input-placeholder
-    {
+    .yourclass::-webkit-input-placeholder{
         color: #6c757d;
     }
-    #loader1 
-    {  
+    #loader1{  
         position: fixed;  
         left: 0px;  
         top: 0px;  
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;   
     }
 </style>
 <div id="loader1" class="rotate" width="100" height="100"></div>
@@ -127,11 +121,9 @@
 </div>
 <script src="assets/js/customjquery.min.js"></script>
 <script>
-$(document).ready(function(){ 
-	$("#loader1").fadeOut(1200);
-});
-</script>
-<script>
+    $(document).ready(function(){ 
+        $("#loader1").fadeOut(1200);
+    });
     $('#category').on('change', function(){
     var category = $(this).val();
         $.ajax({

@@ -24,9 +24,9 @@ class AdminController extends Controller
     {
         if(Auth::user()->role == 'Admin'){
             try{
-                $user = User::orderBy('id','DESC')->where('id', '!=', 1)->get();
-                $department = Department::orderBy('id','DESC')->get();
-                $designation = Designation::orderBy('id','DESC')->get();
+                $user = User::orderBy('name','ASC')->where('id', '!=', 1)->get();
+                $department = Department::orderBy('id','DESC')->limit(5)->get();
+                $designation = Designation::orderBy('id','DESC')->limit(5)->get();
                 return view('admin.master-data',compact('user','department','designation'));
             }
             catch(Exception $e){

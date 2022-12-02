@@ -1,23 +1,20 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <style>
-    #loader1 
-    {  
+    #loader1{  
         position: fixed;  
         left: 0px;  
         top: 0px;  
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black; 
     }
-    .table_row:hover
-    {
+    .table_row:hover{
         background-color: #f1f5fa;
         cursor: pointer;
     }
-    #image:hover
-    {
+    #image:hover{
         transform: scale(1.5);
         transition: transform .5s;
         cursor: pointer;
@@ -32,7 +29,7 @@
                     <div class="float-right">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Manage Users</li>
+                            <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Manage Users</li>
                         </ol>
                     </div>
                     <h4 class="page-title">Manage Users</h4>
@@ -70,7 +67,7 @@
                                             </a>
                                             @else
                                             <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                                <img id="image" style="transition: transform .5s;" src="img/avatars/avatar-2.jpg" alt="profile-user" class="rounded-circle mr-2" /> 
+                                                <img id="image" style="transition: transform .5s;" src="img/avatars/Profile.png" alt="profile-user" class="rounded-circle mr-2" /> 
                                                 {{$user->name}}
                                             </a>
                                             @endif    
@@ -81,13 +78,13 @@
                                             <td>{{$user->department}}</td>
                                             <td>
                                             @if($user->status == 1)    
-                                                <span class="badge badge-md badge-boxed badge-success mr-2 p-2 mt-1">Active</span>
+                                                <span class="badge badge-md badge-boxed badge-soft-success mr-2 p-2 mt-1">Active</span>
                                             @elseif($user->status == 2)
-                                                <span class="badge badge-md badge-boxed badge-success mr-2 p-2 mt-1">Deactive</span>
+                                                <span class="badge badge-md badge-boxed badge-soft-warning mr-2 p-2 mt-1">Deactive</span>
                                             @elseif($user->status == 3)
-                                                <span class="badge badge-md badge-boxed badge-success mr-2 p-2 mt-1">Terminated</span>
+                                                <span class="badge badge-md badge-boxed badge-soft-danger mr-2 p-2 mt-1">Terminated</span>
                                             @elseif($user->status == 4)
-                                                <span class="badge badge-md badge-boxed badge-success mr-2 p-2 mt-1">Deleted</span>
+                                                <span class="badge badge-md badge-boxed badge-soft-danger mr-2 p-2 mt-1">Deleted</span>
                                             @endif
                                             </td>
                                             <td>{{$user->role}}</td>
@@ -113,8 +110,8 @@
                                                             Select "Delete" below if you are ready to delete User?
                                                         </div>
                                                         <div class="modal-footer" style="background: transparent;">
-                                                            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                                            <button id="delete-user" type="button" class="btn btn-danger">Delete</button>
+                                                            <button type="button" class="btn btn-dark shadow-none" data-dismiss="modal">Close</button>
+                                                            <button id="delete-user" type="button" class="btn btn-danger shadow-none">Delete</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -134,11 +131,9 @@
 </div>
 <script src="assets/js/customjquery.min.js"></script>
 <script>
-$(document).ready(function(){ 
-	$("#loader1").fadeOut(1200);
-});
-</script>
-<script>
+    $(document).ready(function(){ 
+        $("#loader1").fadeOut(1200);
+    });
     $(".delete").click(function(){
         var id = $(this).attr("data-id");
         $("#delete-user").attr("data-id", id);

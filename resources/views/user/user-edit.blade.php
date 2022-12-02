@@ -1,22 +1,20 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <style>
-    #loader1 
-    {  
+    #loader1{  
         position: fixed;  
         left: 0px;  
         top: 0px;  
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black; 
     }
     .dropify-wrapper{
         height: 100%;
         margin-bottom: 2%;
     }
-    .yourclass::-webkit-input-placeholder
-    {
+    .yourclass::-webkit-input-placeholder{
         color: #6c757d;
     }
 </style>
@@ -28,8 +26,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{url('user-manage')}}">Manage User</a></li>
-                        <li class="breadcrumb-item active">Edit User</li>
+                        <li class="breadcrumb-item"><a href="{{url('manage-user')}}">Manage User</a></li>
+                        <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Edit User</li>
                     </ol>
                 </div>
                 <h4 class="page-title">Edit User</h4>
@@ -47,8 +45,8 @@
                                 <div class="form-group row py-0">
                                     <div class="col-md-12 col-md-12 col-md-12 py-0">                                        
                                         <label><b style="color: #6c757d">Profile Photo</b></label>
-                                        @if(isset($userImage) && !empty($userImage)) 
-                                        <input type="file" name="image" id="input-file-now-custom-1" class="dropify" data-default-file="{{ asset('uploads/appsetting/' . $userImage) }}"/>
+                                        @if(isset($user->image) && !empty($user->image)) 
+                                        <input type="file" name="image" id="input-file-now-custom-1" class="dropify" data-default-file="{{ asset('uploads/appsetting/' . $user->image) }}"/>
                                         @else
                                         <input type="file" name="image" id="input-file-now-custom-1" class="dropify" data-default-file="img/photos/upload.jpg"/>
                                         @endif
@@ -122,8 +120,8 @@
 </div>
 <script src="assets/js/customjquery.min.js"></script>
 <script>
-$(document).ready(function(){ 
-	$("#loader1").fadeOut(1200);
-});
+    $(document).ready(function(){ 
+        $("#loader1").fadeOut(1200);
+    });
 </script>
 @endsection

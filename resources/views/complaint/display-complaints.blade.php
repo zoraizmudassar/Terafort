@@ -3,17 +3,8 @@
 <link href="plugins/filter/magnific-popup.css" rel="stylesheet" type="text/css" />
 <?php
     $id = Auth::user()->id;
-    // $IdUser = $id;
-    // $UserDetail = DB::table("users")->where("id", $id)->pluck('userrole');
     $image = DB::table("users")->where("id", $id)->pluck('image');
     $image = $image[0];
-    // $UserDetail1 = DB::table("newroles")->where("name", $UserDetail)->get();
-    // $obj = json_decode (json_encode ($UserDetail1), FALSE);
-    // $storeData = [];
-    // foreach($obj as $dataa){
-    //     $storeData[$dataa->role_name] = $dataa->value; 
-    // }
-    // print_r($storeData);
     $tem1 = null;
 ?>
 <style>
@@ -61,16 +52,16 @@
     .yourclass::-webkit-input-placeholder{
         color: #6c757d;
     }
-    #loader1 {  
+    #loader1{ 
         position: fixed;  
         left: 0px;  
         top: 0px;  
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;   
     }
-    .mfp-container {
+    .mfp-container{
         cursor: auto
     }
 </style>
@@ -365,11 +356,11 @@
             function formatAMPM(date){
                 var hours = date.getHours();
                 var minutes = date.getMinutes();
-                var ampm = hours >= 12 ? 'PM' : 'AM';
+                var ampm = hours >= 12?'PM':'AM';
                 hours = hours % 12;
-                hours = hours ? hours : 12;
-                minutes = minutes < 10 ? '0'+minutes : minutes;
-                var strTime = hours + ':' + minutes + ' ' + ampm;
+                hours = hours ? hours:12;
+                minutes = minutes < 10?'0'+minutes:minutes;
+                var strTime = hours+':'+minutes+' '+ampm;
                 return strTime;
             }
             var msg = $("#message").val();
@@ -380,10 +371,7 @@
                 type: 'post',
                 url: 'chats1/',
                 data: $('#Chatform').serialize(),
-                success: function()
-                {
-                    // $(".chatcard1").show();
-                    // $(".chatcard2").hide();
+                success: function(){
                     var complaint = $("#complaint").val();
                     document.getElementById("Chatform").reset();
                     var userid = $("#id").val();

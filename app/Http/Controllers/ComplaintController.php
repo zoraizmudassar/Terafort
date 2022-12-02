@@ -54,7 +54,7 @@ class ComplaintController extends Controller
             else{
                 $result = $store + $complaint[0]->id;
             }
-            return view('admin.support-case')->with([
+            return view('complaint.support-case')->with([
                 'category'=> $category, 
                 'subCategory'=> $subCategory, 
                 'complaintNo'=> $result
@@ -738,5 +738,48 @@ class ComplaintController extends Controller
             'alert-type' => 'warning'
         );
         return back()->with($notification);
+    }
+
+    public function Reject(Request $request, $id)
+    {
+        try{
+            date_default_timezone_set("Asia/karachi");
+            $date = date("d-m-Y");
+            $data = array(
+                'data' => $date,
+                'event_at' => 'Complaint Rejected',
+                'complaint_id' => $id
+            );
+            $user = notifications::create($data);
+            $update = DB::table('complaints')->where('id', $id)->update(['status' => 1]);
+            if($update){
+                $event = "Complaint Rejected";
+                $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator')->pluck('id');
+                foreach($assignUsers as $assignUser){
+                    $NotificationDetailData = array(
+                        'notificationId' => $user['id'],
+                        'assignUsers' => $assignUser,
+                        'event_name' => $user['event_name'],
+                        'url' => 'complaints-view',
+                        'complaint_id' => $id,
+                        'userid' => Auth::user()->id,
+                    );
+                    NotificationDetail::create($NotificationDetailData);
+                }    
+                // notification_details::where('notification_id', $Noti_id)->where('assign_users', Auth::user()->id)->delete();
+                return response()->json($update);
+            }
+            else{
+                $error = 400;
+                return response()->json($error);
+            }
+        }
+        catch(Exception $e){
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
     }
 }

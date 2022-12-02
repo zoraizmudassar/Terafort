@@ -7,7 +7,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="shortcut icon" href="img/photos/modified.png">
+    <link rel="shortcut icon" href="img/photos/terafort2.png">
     <link href="plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/jquery-ui.min.css" rel="stylesheet">
@@ -26,13 +26,13 @@
     <link href="plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
 </head>
 <style>
-    a:hover {
+    a:hover{
         text-decoration: none;
     }
-    li:hover {
+    li:hover{
         text-decoration: none;
     }
-    .footer {
+    .footer{
         position: fixed;
         left: 0;
         bottom: 0;
@@ -41,37 +41,37 @@
         color: black;
         text-align: center;
     }
-    textarea {
+    textarea{
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
     }
     html,
-    body {
+    body{
         margin: 0;
         font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
-    ::-webkit-scrollbar {
+    ::-webkit-scrollbar{
         width: 12px;
         height: 12px;
         border-radius: 10px;
     }
-    ::-webkit-scrollbar-track {
+    ::-webkit-scrollbar-track{
         background: #f1f1f1;
         border-radius: 10px;
     }
-    ::-webkit-scrollbar-thumb {
+    ::-webkit-scrollbar-thumb{
         background: rgb(197, 197, 197);
         border-radius: 10px;
     }
-    ::-webkit-scrollbar-thumb:hover {
+    ::-webkit-scrollbar-thumb:hover{
         background: rgb(155, 155, 155);
         border-radius: 10px;
     }
-    body.dark-topbar .navbar-custom {
+    body.dark-topbar .navbar-custom{
         background: #292e40;
     }
-    #notification:hover {
+    #notification:hover{
         background-color: transparent;
     }
 </style>
@@ -392,41 +392,41 @@ function myFunction111()
 }
 </script>     
 <script>
-@if(Session::has('message'))
-var type = "{{ Session::get('alert-type', 'info') }}";
-switch (type) {
-case 'info':
-    Swal.fire({
-        icon: 'info',
-        title: "{{ session('message') }}",
-        showConfirmButton: false,
-        timer: 2000
-    });
-    break;
-case 'warning':
-    Swal.fire({
-        icon: 'warning',
-        title: "{{ session('message') }}",
-        showConfirmButton: false,
-        timer: 2000
-    });
-    break;
-case 'success':
-    Swal.fire({
-        icon: 'success',
-        title: "{{ session('message') }}",
-        showConfirmButton: false,
-        timer: 2000
-    });
-    break;
-case 'error':
-    Swal.fire({
-        icon: 'error',
-        title: "{{ session('message') }}",
-        showConfirmButton: false,
-        timer: 2000
-    });
-    break;
-}
-@endif
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch (type) {
+    case 'info':
+        Swal.fire({
+            icon: 'info',
+            title: "{{ session('message') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+        break;
+    case 'warning':
+        Swal.fire({
+            icon: 'warning',
+            title: "{{ session('message') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+        break;
+    case 'success':
+        Swal.fire({
+            icon: 'success',
+            title: "{{ session('message') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+        break;
+    case 'error':
+        Swal.fire({
+            icon: 'error',
+            title: "{{ session('message') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+        break;
+    }
+    @endif
 </script>

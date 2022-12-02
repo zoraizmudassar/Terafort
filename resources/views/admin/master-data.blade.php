@@ -1,16 +1,5 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
-<?php
-	// $id = Auth::user()->id;
-	// $UserDetail = DB::table("users")->where("id", $id)->pluck('userrole');
-	// $UserDetail1 = DB::table("newroles")->where("name", $UserDetail)->get();
-	// $obj = json_decode (json_encode ($UserDetail1), FALSE);
-    // $storeData = [];
-    // foreach($obj as $dataa){
-    //     $storeData[$dataa->role_name] = $dataa->value; 
-    // }
-    // print_r($storeData);
-?>
 <style>
     .displayBadge{
         display: none; 
@@ -39,7 +28,7 @@
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;   
     }
     .yourclass::-webkit-input-placeholder
     {
@@ -54,7 +43,7 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Create User</li>
+                        <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Create User</li>
                     </ol>
                 </div>
                 <h4 class="page-title">Master Settings</h4>
@@ -162,14 +151,14 @@
                                 <input type="text" class="form-control py-2 yourclass" id="department" name="department" placeholder="Department" required>
                             </div>
                             <div class="col-sm-3 py-4">
-                                <button type="submit" style="margin-top: 5px; border: none; font-size: 15px; background: linear-gradient(14deg, #1761fd 0%, rgba(23, 97, 253, 0.6));" class="btn py-2 btn-lg btn-block text-white">Add</button>
+                                <button type="submit" style="margin-top: 5px; border: none; font-size: 15px; background: #fc5c04;" class="btn py-2 btn-lg btn-block text-white">Add</button>
                             </div>
                         </div>
                     </form>
                     <div class="form-group row py-2 px-2">
                         <div class="table-responsive">
-                            <table class="table table-sm table-striped mb-0">
-                                <thead class="thead-dark">
+                            <table class="table table-sm mb-0">
+                                <thead class="thead-light">
                                     <tr class="text-center">
                                         <th>#</th>
                                         <th>Department</th>
@@ -189,7 +178,7 @@
                     </div>
                     <div class="form-group row py-2">
                         <div class="col-sm-12">
-                            <button data-toggle="modal" data-target="#exampleModalCentershape" style="margin-top: 5px; border: none; font-size: 15px; background: linear-gradient(14deg, #1761fd 0%, rgba(23, 97, 253, 0.6));" class="btn px-5 py-1 btn-lg btn-block text-white">View All</button>
+                            <button data-toggle="modal" data-target="#exampleModalCentershape" style="margin-top: 5px; border: none; font-size: 15px; background: #fc5c04;" class="btn px-5 py-1 btn-lg btn-block text-white">View All</button>
                         </div>
                     </div>
                 </div>
@@ -211,14 +200,14 @@
                                 <input type="text" class="form-control py-2 yourclass" id="designation" name="designation" placeholder="Designation" required>
                             </div>
                             <div class="col-sm-3 py-4">
-                                <button type="submit" style="margin-top: 5px; border: none; font-size: 15px; background: linear-gradient(14deg, #1761fd 0%, rgba(23, 97, 253, 0.6));" class="btn py-2 btn-lg btn-block text-white">Add</button>
+                                <button type="submit" style="margin-top: 5px; border: none; font-size: 15px; background: #fc5c04;" class="btn py-2 btn-lg btn-block text-white">Add</button>
                             </div>
                         </div>
                     </form>
                     <div class="form-group row py-2 px-2">
                         <div class="table-responsive">
-                            <table class="table table-sm table-striped mb-0">
-                                <thead class="thead-dark">
+                            <table class="table table-sm mb-0">
+                                <thead class="thead-light">
                                     <tr class="text-center">
                                         <th>#</th>
                                         <th>Designation</th>
@@ -238,7 +227,7 @@
                     </div>
                     <div class="form-group row py-2">
                         <div class="col-sm-12">
-                            <button data-toggle="modal" data-target="#exampleModalCentershape1" style="margin-top: 5px; border: none; font-size: 15px; background: linear-gradient(14deg, #1761fd 0%, rgba(23, 97, 253, 0.6));" class="btn px-5 py-1 btn-lg btn-block text-white">View All</button>
+                            <button data-toggle="modal" data-target="#exampleModalCentershape1" style="margin-top: 5px; border: none; font-size: 15px; background: #fc5c04;" class="btn px-5 py-1 btn-lg btn-block text-white">View All</button>
                         </div>
                     </div>
                 </div>
@@ -250,7 +239,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-3">
             <div class="modal-header" style="background: none;">
-                <h5 class="modal-title" id="exampleModalLongTitle">Shape</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Department</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -290,7 +279,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-3">
             <div class="modal-header" style="background: none;">
-                <h5 class="modal-title" id="exampleModalLongTitle">Shape</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Designation</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

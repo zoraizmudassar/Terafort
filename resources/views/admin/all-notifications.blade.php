@@ -1,16 +1,5 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
-<?php
-	$id = Auth::user()->id;
-	$UserDetail = DB::table("users")->where("id", $id)->pluck('userrole');
-	$UserDetail1 = DB::table("newroles")->where("name", $UserDetail)->get();
-	$obj = json_decode (json_encode ($UserDetail1), FALSE);
-    $storeData = [];
-    foreach($obj as $dataa){
-        $storeData[$dataa->role_name] = $dataa->value; 
-    }
-    // print_r($storeData);
-?>
 <style>
     .displayBadge{
         display: none; 
@@ -42,7 +31,7 @@
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;    
     }
     .table_row:hover{
         /* background-color: #435177; */
@@ -64,7 +53,7 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Latest Activities</li>
+                        <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Latest Activities</li>
                     </ol>
                 </div>
                 <h4 class="page-title">Latest Activities</h4>
@@ -156,84 +145,6 @@
                 </div>
             </div>
         </div> 
-    </div>
-    <div class="row" hidden>
-        <div class="col-lg-4" >
-            <div class="card" style="font-family: unset;">
-                <div class="card-body p-3" style="overflow-y: scroll; max-height: 700px;"> 
-                        @foreach($notification as $val)
-                            @if($val->event == 'Complaint Solved')
-                              
-                                @if($val->read_at != NULL)
-                                <span style="display: inline-flex; background: #d9e3eb7d;" class="w-100">
-                                @else
-                                <span style="display: inline-flex; background: white;" class="w-100">
-                                @endif
-                            @else
-                               
-                                @if($val->read_at != NULL)
-                                <span style="display: inline-flex; background: #d9e3eb7d;" class="w-100">
-                                @else
-                                <span style="display: inline-flex; background: white;" class="w-100">
-                                @endif
-                            @endif
-                                <a href="#" class="dropdown-item py-3" id="notification">                                    
-                                    <?php
-                                        date_default_timezone_set("Asia/karachi");
-                                        $time = date("h:i A");
-                                        $datetime2 = new DateTime($time);
-                                        $month = $val->created_at;
-                                        $delimiter = ' ';
-                                        $words = explode($delimiter, $month);
-                                        $datetime3 = new DateTime($val->created_at);
-                                        $interval = $datetime2->diff($datetime3);
-                                        $diff = $interval->format('%h hr %i min');
-                                    ?>
-                                    <div class="media">
-                                        @if($val->event == 'Complaint Solved')
-                                            <img style="margin-left: -6px;" src="img/avatars/tick.png" alt="user" class="rounded-circle thumb-sm">
-                                        @elseif($val->event == 'In Process')
-                                            <img style="margin-left: -6px;" src="img/avatars/images (1).png" alt="user" class="rounded-circle thumb-sm">
-                                        @elseif($val->event == 'New Message')
-                                            @if(isset($val->image) && !empty($val->image)) 
-                                                <img style="margin-left: -6px;" src="{{asset('uploads/appsetting/'.$val->image)}}" alt="user" class="rounded-circle thumb-sm">    
-                                            @else
-                                                <img style="margin-left: -6px;" src="img/avatars/avatar-2.jpg" alt="user" class="rounded-circle thumb-sm">
-                                            @endif
-                                        @else
-                                            @if(isset($val->image) && !empty($val->image)) 
-                                                <img style="margin-left: -6px;" src="{{asset('uploads/appsetting/'.$val->image)}}" alt="user" class="rounded-circle thumb-sm">    
-                                            @else
-                                                <img style="margin-left: -6px;" src="img/avatars/avatar-2.jpg" alt="user" class="rounded-circle thumb-sm">
-                                            @endif
-                                        @endif
-                                        <div class="media-body align-self-center ml-2 text-truncate">
-                                                @if($val->read_at != NULL)
-                                                <h6 style="font-family: unset; text-transform: capitalize;" class="my-0 font-weight-normal text-dark">{{$val->event}}</h6>
-                                                @else
-                                                <h6 style="font-family: unset; text-transform: capitalize;" class="my-0 font-weight-normal text-dark">{{$val->event}}<small class="float-left"><i style="font-size: xx-small;" class="mdi mdi-circle-slice-8 mr-1 text-danger"></i></small> </h6>
-                                                @endif
-                                            @if($val->event == 'Complaint Solved')
-                                            <small style="font-family: unset;" class=" mb-0">By <span style="font-weight: 600; font-family: unset; letter-spacing: 0.3px;"> {{$val->name}}</span></small>
-                                            @elseif($val->event == 'In Process')
-                                            <small style="font-family: unset;" class=" mb-0">By <span style="font-weight: 600; font-family: unset; letter-spacing: 0.3px;"> {{$val->name}}</span></small>
-                                            @else
-                                            <small style="font-family: unset;" class=" mb-0">From <span style="font-weight: 600; font-family: unset; letter-spacing: 0.3px;"> {{$val->name}}</span></small>
-                                            @endif
-                                        </div>
-                                            <span>
-                                            <small style="font-size: small;" class="float pl-2"><i class="mdi mdi-calendar-text-outline"></i> {{$words[0]}}</small>
-                                            <br>                                
-                                            <small style="font-size: small;" class="float pl-2"><i class="mdi mdi-timer"></i> {{$words[1]}}</small>
-                                            </span>
-                                    </div>
-                                </a>
-                                <span hidden data-toggle="tooltip" data-placement="top" title="&nbsp; Mark as Read &nbsp;" onclick="myFunction('{{ $val->id }}');" class="py-3" style="font-size: x-large; cursor: pointer;"><i class="mdi mdi-progress-check"></i></span>
-                            </span>                       
-                        @endforeach
-                    </div>
-            </div>
-        </div>
     </div>
 </div>
 </div>

@@ -4,36 +4,53 @@
     *{ 
         font-family: system-ui;
     }
+    label{
+        font-weight: 400;
+        color: #484d6c;
+        font-size: 13px;
+    }
 </style>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card" style="top: 50%;">
+        <div class="col-md-6">
+            <div class="card" style="top: 40%;">
                 <div class="auth-logo-box text-center mt-5">
                     <a class="logo logo-admin"><img src="img/photos/terafort.jpeg" height="70" alt="logo" class="auth-logo"></a>
-                </div><br><br>
-                <div class="card-body">
+                </div><br>
+                <div class="card-body mb-5">
                     <form action="{{ route('Signupp') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">Usermane Or Email</label>
-                            <div class="col-md-6">
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" placeholder="Enter Email / Username" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                @error('email')
-                                    <span class="badge displayBadges py-2 mt-2 text-light" style="background: #cd3f3f; display: block; font-size: 13px !important;">{{$message}}</span>
-                                @enderror
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                            <label for="example-input1-group1" style="letter-spacing: 0.3px;"><b style="font-weight: 500;">Login with Email or Username</b></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-user"></i></span>
+                                    </div>
+                                    <input id="email" name="email" value="{{ old('email') }}" type="text" name="example-input1-group1" class="form-control" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">Password</label>
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                @error('password')
-                                    <span class="badge displayBadges py-2 mt-2 text-light" style="background: #cd3f3f; display: block; font-size: 13px !important;">{{$message}}</span>
-                                @enderror
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                            <label for="example-input1-group1" style="letter-spacing: 0.3px;"><b style="font-weight: 500;">Password</b></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                    </div>
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" required autocomplete="current-password">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-3" hidden>
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -41,9 +58,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary px-5" style="background: linear-gradient(14deg, #fc5c04 0%, #f96c07);">Login</button>
+                        <div class="row mb-3">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+
+                            <button type="submit" style="background: linear-gradient(14deg, #fc5c04 0%, #f96c07);" class="btn px-5 py-1 btn-lg btn-block text-white border-0">Login</button>
+                            </div>
+                            <div class="col-md-2">
                             </div>
                         </div>
                     </form>

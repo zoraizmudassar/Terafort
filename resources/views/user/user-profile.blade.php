@@ -81,7 +81,7 @@
         width: 100%;  
         height: 100%;  
         z-index: 9999;  
-        background: url("/img/avatars/3dgifmaker.gif") 50% 50% no-repeat black;  
+        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black; 
     }
     p
     {
@@ -101,7 +101,7 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Profile</li>
+                        <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Profile</li>
                     </ol>
                 </div>
                 <h4 class="page-title">Profile</h4>
