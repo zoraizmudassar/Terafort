@@ -73,16 +73,6 @@
         height: 205px;
         margin-bottom: 20px;
     }
-    #loader1 
-    {  
-        position: fixed;  
-        left: 0px;  
-        top: 0px;  
-        width: 100%;  
-        height: 100%;  
-        z-index: 9999;  
-        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black; 
-    }
     p
     {
         font-family: "Poppins", sans-serif;

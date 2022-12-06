@@ -6,6 +6,7 @@ use DB;
 use Hash;
 use Auth;    
 use Exception;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\UserDetail;
@@ -148,6 +149,7 @@ class UserController extends Controller
 
     public function Edituser(Request $request)
     {
+        $current_date_time = Carbon::now()->toDateTimeString();
         if(Auth::user()->role == 'Admin'){
             try{
                 $id = $request->id;
@@ -167,6 +169,7 @@ class UserController extends Controller
                         'designation' => $request->designation,            
                         'role' => $request->role,
                         'image' => $request->image,
+                        'updated_at' => $current_date_time,
                     );
                 }
                 else{
@@ -179,6 +182,7 @@ class UserController extends Controller
                         'department' => $request->department,            
                         'designation' => $request->designation,            
                         'role' => $request->role,
+                        'updated_at' => $current_date_time,
                     );
                 }
                 $update = User::where('id', $id)->update($data);

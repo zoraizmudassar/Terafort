@@ -74,6 +74,15 @@
     #notification:hover{
         background-color: transparent;
     }
+    #loader1{  
+        position: fixed;  
+        left: 0px;  
+        top: 0px;  
+        width: 100%;  
+        height: 100%;  
+        z-index: 9999;  
+        background: url("/img/avatars/giphy (3).gif") 50% 50% no-repeat black; 
+    }
 </style>
 <?php
     $notification = DB::table("notification_details")->orderBy('id','DESC')->where('assignUsers', Auth::user()->id)->limit(10)->get();
@@ -179,7 +188,7 @@
                                             <small style="font-family: system-ui;" class=" mb-0"> By <span style="font-weight: 600; font-family: system-ui; letter-spacing: 0.3px;"> {{$val['name']}} </span></small>
                                             @elseif($val['data']->event_name == 'Complaint Completed')
                                             <small style="font-family: system-ui;" class=" mb-0"> By <span style="font-weight: 600; font-family: system-ui; letter-spacing: 0.3px;"> {{$val['name']}} </span></small>
-                                            @elseif($val['data']->event_name == 'Complaint Rejected')
+                                            @elseif($val['data']->event_name == 'Complaint Re-Open')
                                             <small style="font-family: system-ui;" class=" mb-0"> By <span style="font-weight: 600; font-family: system-ui; letter-spacing: 0.3px;"> {{$val['name']}} </span></small>
                                             @else
                                             <small style="font-family: system-ui;" class=" mb-0"> From <span style="font-weight: 600; font-family: system-ui; letter-spacing: 0.3px;"> {{$val['name']}}</span></small>

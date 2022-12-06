@@ -1,16 +1,5 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
-<style>
-    #loader1{  
-        position: fixed;  
-        left: 0px;  
-        top: 0px;  
-        width: 100%;  
-        height: 100%;  
-        z-index: 9999;  
-        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black; 
-    }
-</style>
 <div id="loader1" class="rotate" width="100" height="100"></div>
 <div class="container-fluid px-5">
     <div class="row px-1">
@@ -71,23 +60,23 @@
                                                     <div id="collapseOne1" class="collapse" aria-labelledby="headingOne1" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                         <div class="card-body">
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck1 checkbox-info" id="rolelist1" type="checkbox" name="Role[]">
+                                                                <input class="form-check-input name rolecheck checkbox-info" id="rolelist1" type="checkbox" name="Role[]">
                                                                 <span id="rolelist" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck1 checkbox-info" id="rolecreate1" type="checkbox" name="Role[]">
+                                                                <input class="form-check-input name rolecheck checkbox-info" id="rolecreate1" type="checkbox" name="Role[]">
                                                                 <span id="rolecreate" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck1 checkbox-info" id="roleedit1" type="checkbox" name="Role[]">
+                                                                <input class="form-check-input name rolecheck checkbox-info" id="roleedit1" type="checkbox" name="Role[]">
                                                                 <span id="roleedit" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck1 checkbox-dark" id="roledelete1" type="checkbox" name="Role[]">
+                                                                <input class="form-check-input name rolecheck checkbox-dark" id="roledelete1" type="checkbox" name="Role[]">
                                                                 <span id="roledelete" class="form-check-label"></span>
                                                             </label>                            
                                                             <label class="form-check form-check-inline" style="float: right;">
-                                                                <input class="form-check-input checkbox-info" id="allCheck1" type="checkbox">
+                                                                <input class="form-check-input checkbox-info" id="roleAll" type="checkbox">
                                                                 <span class="form-check-label">Mark All</span>
                                                             </label>
                                                         </div>
@@ -102,23 +91,23 @@
                                                     <div id="collapseOne122" class="collapse" aria-labelledby="headingOne122" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                         <div class="card-body">
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck22" id="userlist1" type="checkbox" name="User[]">
+                                                                <input class="form-check-input name usercheck" id="userlist1" type="checkbox" name="User[]">
                                                                 <span id="userlist" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck22" id="usercreate1" type="checkbox" name="User[]">
+                                                                <input class="form-check-input name usercheck" id="usercreate1" type="checkbox" name="User[]">
                                                                 <span id="usercreate" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck22" id="useredit1" type="checkbox" name="User[]">
+                                                                <input class="form-check-input name usercheck" id="useredit1" type="checkbox" name="User[]">
                                                                 <span id="useredit" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck22" id="userdelete1" type="checkbox" name="User[]">
+                                                                <input class="form-check-input name usercheck" id="userdelete1" type="checkbox" name="User[]">
                                                                 <span id="userdelete" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline" style="float: right;">
-                                                                <input class="form-check-input" id="allCheck22" type="checkbox">
+                                                                <input class="form-check-input" id="userAll" type="checkbox">
                                                                 <span class="form-check-label">Mark All</span>
                                                             </label>
                                                         </div>
@@ -133,19 +122,19 @@
                                                     <div id="headingOne12211" class="collapse" aria-labelledby="headingOne12211a" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                         <div class="card-body">
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck221a" id="employee1" type="checkbox" name="Others[]">
+                                                                <input class="form-check-input name othercheck" id="employee1" type="checkbox" name="Others[]">
                                                                 <span id="employee" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck221a" id="admin1" type="checkbox" name="Others[]">
+                                                                <input class="form-check-input name othercheck" id="admin1" type="checkbox" name="Others[]">
                                                                 <span id="admin" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline">
-                                                                <input class="form-check-input name Singlecheck221a" id="s_admin1" type="checkbox" name="Others[]">
+                                                                <input class="form-check-input name othercheck" id="s_admin1" type="checkbox" name="Others[]">
                                                                 <span id="s_admin" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline" style="float: right;">
-                                                                <input class="form-check-input" id="allCheck221a" type="checkbox">
+                                                                <input class="form-check-input" id="otherAll" type="checkbox">
                                                                 <span class="form-check-label">Mark All</span>
                                                             </label>
                                                         </div>
@@ -324,5 +313,46 @@
             }
         });
     });    
+</script>
+<script>
+    $(document).ready(function(){ 
+        $("#loader1").fadeOut(1200);
+    });
+    $("#roleAll").change(function(){
+        if(this.checked) {
+            $(".rolecheck").each(function(){
+                this.checked=true;
+            });
+        } 
+        else{
+            $(".rolecheck").each(function(){
+                this.checked=false;
+            });
+        }
+    });
+    $("#userAll").change(function(){
+        if(this.checked) {
+            $(".usercheck").each(function(){
+                this.checked=true;
+            });
+        } 
+        else{
+            $(".usercheck").each(function(){
+                this.checked=false;
+            });
+        }
+    });
+    $("#otherAll").change(function(){
+        if(this.checked) {
+            $(".othercheck").each(function(){
+                this.checked=true;
+            });
+        } 
+        else{
+            $(".othercheck").each(function(){
+                this.checked=false;
+            });
+        }
+    });
 </script>
 @endsection

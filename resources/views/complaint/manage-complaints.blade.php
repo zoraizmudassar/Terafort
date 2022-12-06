@@ -1,15 +1,6 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <style>
-    #loader1{  
-        position: fixed;  
-        left: 0px;  
-        top: 0px;  
-        width: 100%;  
-        height: 100%;  
-        z-index: 9999;  
-        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;  
-    }
     .apexcharts-legend.position-bottom.left, .apexcharts-legend.position-top.left, .apexcharts-legend.position-right, .apexcharts-legend.position-left {
         align-items: flex-start;
         justify-content: flex-start;

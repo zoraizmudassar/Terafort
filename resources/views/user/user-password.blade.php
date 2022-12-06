@@ -21,15 +21,6 @@
     .fa{
         font-size: 1.1rem;
     }
-    #loader1{  
-        position: fixed;  
-        left: 0px;  
-        top: 0px;  
-        width: 100%;  
-        height: 100%;  
-        z-index: 9999;  
-        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;  
-    }
     .yourclass::-webkit-input-placeholder{
         color: #6c757d;
     }

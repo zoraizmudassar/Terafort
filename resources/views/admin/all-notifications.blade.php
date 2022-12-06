@@ -24,15 +24,6 @@
     .yourclass::-webkit-input-placeholder{
         color: #6c757d;
     }
-    #loader1{  
-        position: fixed;  
-        left: 0px;  
-        top: 0px;  
-        width: 100%;  
-        height: 100%;  
-        z-index: 9999;  
-        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;    
-    }
     .table_row:hover{
         /* background-color: #435177; */
         background-color: #f1f5fa;

@@ -67,6 +67,15 @@
         background: rgb(155, 155, 155);
         border-radius: 10px;
     }
+    #loader1{  
+        position: fixed;  
+        left: 0px;  
+        top: 0px;  
+        width: 100%;  
+        height: 100%;  
+        z-index: 9999;  
+        background: url("/img/avatars/giphy (3).gif") 50% 50% no-repeat black; 
+    }
 </style>
 <body>
 <div class="topbar">
@@ -124,7 +133,7 @@
             <li>
                 <a href="javascript: void(0);"><i class="ti-settings"></i><span>Master Settings</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    <li class="nav-item"><a class="nav-link"  href="{{url('master-data')}}"><i class="ti-control-record"></i>Master Date</a></li>
+                    <li class="nav-item"><a class="nav-link"  href="{{url('master-data')}}"><i class="ti-control-record"></i>Master Data</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{url('manage-user')}}"><i class="ti-control-record"></i>Manage User</a></li>                          
                     <li class="nav-item"><a class="nav-link" href="{{url('create')}}"><i class="ti-control-record"></i>Create User</a></li>
                 </ul>

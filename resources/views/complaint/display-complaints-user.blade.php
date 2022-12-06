@@ -52,15 +52,6 @@
     .yourclass::-webkit-input-placeholder{
         color: #6c757d;
     }
-    #loader1{  
-        position: fixed;  
-        left: 0px;  
-        top: 0px;  
-        width: 100%;  
-        height: 100%;  
-        z-index: 9999;  
-        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;   
-    }
     .mfp-container{
         cursor: auto
     }
@@ -136,14 +127,14 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header" style="background-color: transparent">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Objective User?</h5>
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Re-Open Complaint?</h5>
                                                 </div>
                                                 <div class="modal-body">
                                                     Select "Delete" below if you are ready to Re-Open Complaint?
                                                 </div>
                                                 <div class="modal-footer" style="background-color: transparent">
                                                     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-danger reject-user" id="reject-user" data-dismiss="modal">Reject</button>
+                                                    <button type="button" class="btn btn-danger reject-user" id="reject-user" data-dismiss="modal">Re-Open</button>
                                                 </div>
                                             </div>
                                         </div>

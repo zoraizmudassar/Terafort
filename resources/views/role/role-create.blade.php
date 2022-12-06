@@ -1,15 +1,6 @@
 @extends((Auth::user()->role == 'Admin') ? 'layouts.admin-layout' : 'layouts.user-layout')
 @section('content')
 <style>
-    #loader1{  
-        position: fixed;  
-        left: 0px;  
-        top: 0px;  
-        width: 100%;  
-        height: 100%;  
-        z-index: 9999;  
-        background: url("/img/avatars/giphy (1).gif") 50% 50% no-repeat black;   
-    }
     .yourclass::-webkit-input-placeholder{
         color: #6c757d;
     }
@@ -117,15 +108,15 @@
                                             <div id="collapseOne1233" class="collapse" aria-labelledby="headingOne11" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                 <div class="card-body">
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name otherCheck" type="checkbox" value="Employee" name="Others[]">
+                                                        <input class="form-check-input name othercheck" type="checkbox" value="Employee" name="Others[]">
                                                         <span class="form-check-label">Employee</span>
                                                     </label>
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name otherCheck" type="checkbox" value="Admin" name="Others[]">
+                                                        <input class="form-check-input name othercheck" type="checkbox" value="Admin" name="Others[]">
                                                         <span class="form-check-label">Admin</span>
                                                     </label>
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name otherCheck" type="checkbox" value="Support Administrator" name="Others[]">
+                                                        <input class="form-check-input name othercheck" type="checkbox" value="Support Administrator" name="Others[]">
                                                         <span class="form-check-label">Support Administrator</span>
                                                     </label>
                                                     <label class="form-check form-check-inline" style="float: right;">
@@ -150,26 +141,26 @@
     $(document).ready(function(){ 
         $("#loader1").fadeOut(1200);
     });
-    $("#allCheck1").change(function(){
+    $("#roleAll").change(function(){
         if(this.checked) {
-            $(".Singlecheck1").each(function(){
+            $(".rolecheck").each(function(){
                 this.checked=true;
             });
         } 
         else{
-            $(".Singlecheck1").each(function(){
+            $(".rolecheck").each(function(){
                 this.checked=false;
             });
         }
     });
-    $("#allCheck3").change(function(){
+    $("#userAll").change(function(){
         if(this.checked) {
-            $(".Singlecheck22").each(function(){
+            $(".usercheck").each(function(){
                 this.checked=true;
             });
         } 
         else{
-            $(".Singlecheck22").each(function(){
+            $(".usercheck").each(function(){
                 this.checked=false;
             });
         }

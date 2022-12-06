@@ -747,13 +747,13 @@ class ComplaintController extends Controller
             $date = date("d-m-Y");
             $data = array(
                 'data' => $date,
-                'event_at' => 'Complaint Rejected',
+                'event_at' => 'Complaint Re-Open',
                 'complaint_id' => $id
             );
             $user = notifications::create($data);
-            $update = DB::table('complaints')->where('id', $id)->update(['status' => 1]);
+            $update = DB::table('complaints')->where('id', $id)->update(['status' => 2]);
             if($update){
-                $event = "Complaint Rejected";
+                $event = "Complaint Re-Open";
                 $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator')->pluck('id');
                 foreach($assignUsers as $assignUser){
                     $NotificationDetailData = array(
