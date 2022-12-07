@@ -423,7 +423,7 @@ class UserController extends Controller
     {
         if(Auth::user()->role == 'Admin'){
             try{
-                $users = User::where('id', $id)->delete();
+                $users = User::where('id', $id)->update(['status' => 4]);
                 if($users){
                     return response()->json($users);
                 }

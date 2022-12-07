@@ -46,23 +46,23 @@
                                             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                 <div class="card-body">
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name Singlecheck1" type="checkbox" value="Role List" name="Role[]">
+                                                        <input class="form-check-input name rolecheck" type="checkbox" value="Role List" name="Role[]">
                                                         <span class="form-check-label">Role List</span>
                                                     </label>
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name Singlecheck1" type="checkbox" value="Role Create" name="Role[]">
+                                                        <input class="form-check-input name rolecheck" type="checkbox" value="Role Create" name="Role[]">
                                                         <span class="form-check-label">Role Create</span>
                                                     </label>
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name Singlecheck1" type="checkbox" value="Role Edit" name="Role[]">
+                                                        <input class="form-check-input name rolecheck" type="checkbox" value="Role Edit" name="Role[]">
                                                         <span class="form-check-label">Role Edit</span>
                                                     </label>
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name Singlecheck1" type="checkbox" value="Role Delete" name="Role[]">
+                                                        <input class="form-check-input name rolecheck" type="checkbox" value="Role Delete" name="Role[]">
                                                         <span class="form-check-label">Role Delete</span>
                                                     </label>
                                                     <label class="form-check form-check-inline" style="float: right;">
-                                                        <input class="form-check-input" id="allCheck1" type="checkbox">
+                                                        <input class="form-check-input" id="roleAll" type="checkbox">
                                                         <span class="form-check-label">Mark All</span>
                                                     </label>
                                                 </div>
@@ -77,23 +77,23 @@
                                             <div id="collapseOne12" class="collapse" aria-labelledby="headingOne11" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                 <div class="card-body">
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name Singlecheck22" type="checkbox" value="User List" name="User[]">
+                                                        <input class="form-check-input name usercheck" type="checkbox" value="User List" name="User[]">
                                                         <span class="form-check-label">User List</span>
                                                     </label>
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name Singlecheck22" type="checkbox" value="User Create" name="User[]">
+                                                        <input class="form-check-input name usercheck" type="checkbox" value="User Create" name="User[]">
                                                         <span class="form-check-label">User Create</span>
                                                     </label>
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name Singlecheck22" type="checkbox" value="User Edit" name="User[]">
+                                                        <input class="form-check-input name usercheck" type="checkbox" value="User Edit" name="User[]">
                                                         <span class="form-check-label">User Edit</span>
                                                     </label>
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name Singlecheck22" type="checkbox" value="User Delete" name="User[]">
+                                                        <input class="form-check-input name usercheck" type="checkbox" value="User Delete" name="User[]">
                                                         <span class="form-check-label">User Delete</span>
                                                     </label>
                                                     <label class="form-check form-check-inline" style="float: right;">
-                                                        <input class="form-check-input" id="allCheck3" type="checkbox">
+                                                        <input class="form-check-input" id="userAll" type="checkbox">
                                                         <span class="form-check-label">Mark All</span>
                                                     </label>
                                                 </div>
