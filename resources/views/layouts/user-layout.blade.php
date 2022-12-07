@@ -8,7 +8,7 @@
     <meta content="" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="img/photos/terafort2.png">
-    <link href="plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
+    <!-- <link href="plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"> -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/jquery-ui.min.css" rel="stylesheet">
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
@@ -258,8 +258,8 @@
             <li class="{{ Request::path() == 'complaints-view-user' ? 'mm-active active' : Request::path() == 'complaints-edit-user' ? 'mm-active active' : Request::path() == 'complaints-view' ? 'mm-active active' : '' }}">
                 <a href="javascript: void(0);" class="{{ Request::path() == 'complaints-view-user' ? 'active' : Request::path() == 'complaints-edit-user' ? 'active' : Request::path() == 'complaints-view' ? 'active' : '' }}"><i class="ti-desktop"></i><span>Help Desk</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level p-0" aria-expanded="false">
-                    <li class="{{ Request::path() == 'complaints-view-user' ? 'nav-item active' : Request::path() == 'complaints-edit-user' ? 'nav-item active' : Request::path() == 'complaints-view' ? 'nav-item active' : 'nav-item' }}"><a class="{{ Request::path() == 'complaints-view-user' ? 'nav-link active' : Request::path() == 'complaints-view' ? 'nav-link active' :  Request::path() == 'complaints-edit-user' ? 'nav-link active' : 'nav-link' }}" href="{{url('manage-complaints-user')}}"><i class="ti-control-record"></i>Manage Complaints</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url('new-complaint')}}"><i class="ti-control-record"></i>Submit Complaint</a></li>   
+                    <li class="{{ Request::path() == 'complaints-view-user' ? 'nav-item active' : Request::path() == 'complaints-edit-user' ? 'nav-item active' : Request::path() == 'complaints-view' ? 'nav-item active' : 'nav-item' }}"><a class="{{ Request::path() == 'complaints-view-user' ? 'nav-link active' : Request::path() == 'complaints-view' ? 'nav-link active' :  Request::path() == 'complaints-edit-user' ? 'nav-link active' : 'nav-link' }}" href="{{url('manage-complaint')}}"><i class="ti-control-record"></i>Manage Complaints</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('complaint')}}"><i class="ti-control-record"></i>Submit Complaint</a></li>   
                 </ul>
             </li>      
             @else

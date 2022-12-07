@@ -65,7 +65,7 @@
                     <div class="float-right">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{url('manage-complaints-user')}}">Manage Complaints</a></li>
+                            <li class="breadcrumb-item"><a href="{{url('manage-complaint')}}">Manage Complaints</a></li>
                             <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Complaint</li>
                         </ol>
                     </div>
@@ -130,11 +130,11 @@
                                                     <h5 class="modal-title" id="exampleModalLongTitle">Re-Open Complaint?</h5>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Select "Delete" below if you are ready to Re-Open Complaint?
+                                                    Select "Re-Open" below if you are ready to Re-Open Complaint
                                                 </div>
                                                 <div class="modal-footer" style="background-color: transparent">
-                                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-danger reject-user" id="reject-user" data-dismiss="modal">Re-Open</button>
+                                                    <button type="button" style="box-shadow: none;" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                                    <button type="button" style="box-shadow: none;" class="btn btn-danger reject-user" id="reject-user" data-dismiss="modal">Re-Open</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,7 +182,7 @@
                                                 ?>
                                                 @if($result > 0)
                                                     <h6 class="m-0" style="font-family: system-ui;">Complaint will Autoclose After</h6>
-                                                    <h6 class="float-right pl-1"> {{(int)$minutes}} <span style="font-weight: 100;">Minutes {{$result}} - <br> {{$expire}} </span>&#128344;</h6>
+                                                    <h6 class="float-right pl-1"> {{(int)$minutes}} <span style="font-weight: 100;">Minutes </span>&#128344;</h6>
                                                     <h6 class="float-right pl-1">{{(int)$hours}}<span style="font-weight: 100;"> Hour </span>  </h6> 
                                                 @endif
                                             </div>

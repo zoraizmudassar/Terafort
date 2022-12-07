@@ -206,10 +206,12 @@
                                             </td>
                                             <td>
                                                 @if(isset($value['data']['updated_at']) && !empty($value['data']['updated_at'])) 
-                                                    <?php $result = $value['data']['created_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
-                                                    <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
-                                                @else
-                                                -
+                                                    @if($value['data']['created_at'] != $value['data']['updated_at'])
+                                                        <?php $result = $value['data']['updated_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
+                                                        <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
+                                                    @else
+                                                    -
+                                                    @endif    
                                                 @endif    
                                             </td>
                                             <td> 

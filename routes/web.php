@@ -19,7 +19,7 @@ Route::get('user-password', function () {
 
 Auth::routes();
 
-Route::post('Signupp', [UserController::class, 'Signupp'])->name('Signupp');
+Route::post('SignIn', [UserController::class, 'Signupp'])->name('SignIn');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function(){
@@ -46,14 +46,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('email/{id}', [UserController::class, 'email'])->name('email');
     Route::get('delete/{id}', [UserController::class, 'delete'])->name('delete');
     //Complaint
-    Route::get('new-complaint', [ComplaintController::class, 'Create'])->name('new-complaint');
+    Route::get('complaint', [ComplaintController::class, 'Create'])->name('complaint');
     Route::get('manage-complaints', [ComplaintController::class, 'manageComplaints'])->name('manage-complaints');
     Route::get('complaints-view', [ComplaintController::class, 'Display'])->name('complaints-view');
     Route::get('master-settings', [ComplaintController::class, 'masterSetting'])->name('master-settings');
     Route::post('add-category', [ComplaintController::class, 'addCategory'])->name('add-category');
     Route::post('add-sub-category', [ComplaintController::class, 'addSubCategory'])->name('add-sub-category');
     Route::post('submit-complaint', [ComplaintController::class, 'submitComplaint'])->name('submit-complaint');
-    Route::get('manage-complaints-user', [ComplaintController::class, 'manageUsersComplaint'])->name('manage-complaints-user');
+    Route::get('manage-complaint', [ComplaintController::class, 'manageUsersComplaint'])->name('manage-complaint');
     Route::get('complaints-view-user', [ComplaintController::class, 'DisplayUser'])->name('complaints-view-user');
     Route::get('chat/{complaint}/{userid}', [ComplaintController::class, 'Chat']);
     Route::post('chats', [ComplaintController::class, 'Chats']);

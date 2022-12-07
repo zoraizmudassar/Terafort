@@ -183,7 +183,7 @@ class ComplaintController extends Controller
                 'message' => 'Complaint Submited',
                 'alert-type' => 'success'
             );
-            return redirect()->route('manage-complaints-user')->with($notification); 
+            return redirect()->route('manage-complaint')->with($notification); 
         }
         catch(Exception $e){
             $notification = array(
@@ -746,11 +746,10 @@ class ComplaintController extends Controller
             date_default_timezone_set("Asia/karachi");
             $date = date("d-m-Y");
             $data = array(
-                'data' => $date,
-                'event_at' => 'Complaint Re-Open',
-                'complaint_id' => $id
+                'event_id' => $id,
+                'event_name' => 'Complaint Re-Open'
             );
-            $user = notifications::create($data);
+            $user = Notification::create($data);
             $update = DB::table('complaints')->where('id', $id)->update(['status' => 2]);
             if($update){
                 $event = "Complaint Re-Open";

@@ -19,10 +19,10 @@
                     <div class="float-right">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Complaint</li>
+                            <li class="breadcrumb-item active" style="font-family: 'Poppins', sans-serif;">Complaints</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Complaint</h4>
+                    <h4 class="page-title">Complaints</h4>
                 </div>
             </div>
         </div>
@@ -143,10 +143,12 @@
                                             <td>{{$value['data']['approve_by']}}</td>
                                             <td>
                                                 @if(isset($value['data']['updated_at']) && !empty($value['data']['updated_at'])) 
-                                                    <?php $result = $value['data']['created_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
-                                                    <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
-                                                @else
-                                                -
+                                                    @if($value['data']['created_at'] != $value['data']['updated_at'])
+                                                        <?php $result = $value['data']['updated_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
+                                                        <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
+                                                    @else
+                                                    -
+                                                    @endif 
                                                 @endif                                            
                                             </td>
                                             <td> 
