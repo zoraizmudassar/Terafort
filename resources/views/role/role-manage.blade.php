@@ -32,6 +32,7 @@
                                             <input type="text" name="id" value="{{$id}}" id="id" hidden>
                                         @endif
                                             <select id="name" name="name" class="form-control select.custom-select" required>
+                                            <option selected disabled>Select Role</option>
                                         @foreach($data as $name)
                                             <option value="{{ $name->name }}">{{ $name->name }}</option>
                                         @endforeach

@@ -159,6 +159,8 @@ class UserController extends Controller
                     $extension = $file->getClientOriginalExtension(); 
                     $filename = time() . '.' . $extension;
                     $file->move('uploads/appsetting/', $filename);
+                }
+                if($request->image){
                     $data = array(
                         'name' => $request->name,
                         'username' => $request->username,
@@ -168,7 +170,7 @@ class UserController extends Controller
                         'department' => $request->department,            
                         'designation' => $request->designation,            
                         'role' => $request->role,
-                        'image' => $request->image,
+                        'image' => $filename,
                         'updated_at' => $current_date_time,
                     );
                 }

@@ -139,6 +139,7 @@
                                             <th>Employee</th>
                                             <th>Department</th>
                                             <th>Status</th>
+                                            <th>File</th>
                                             <th>Category</th>
                                             <th>Date & Time</th>
                                             <th>Operator</th>
@@ -183,6 +184,13 @@
                                                 <span class="badge badge-md badge-boxed badge-soft-secondary p-2 w-100">Closed</span>
                                                 @elseif($value['data']['status'] == 4)
                                                 <span class="badge badge-md badge-boxed badge-soft-success p-2 w-100">Complete</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($value['data']['doc']) && !empty($value['data']['doc']))                                                 
+                                                <span style="cursor: pointer; font-size: x-large; font-weight: 500; color: #303e67;">
+                                                    <i class="mdi mdi-attachment" style="size:1px;"></i> 
+                                                </span>
                                                 @endif
                                             </td>
                                             <td>{{$value['data']['category']}}</td>
