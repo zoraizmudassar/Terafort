@@ -208,10 +208,10 @@ class ComplaintController extends Controller
                     'data' => $data
                 ]; 
             }
-            $noAction = Complaint::orderBy('id','DESC')->where('user', $id)->where('status', NULL)->get();
-            $Process = Complaint::orderBy('id','DESC')->where('user', $id)->where('status', 'in process')->get();
-            $complete = Complaint::orderBy('id','DESC')->where('user', $id)->where('status', 'closed')->get();
-            $final = Complaint::orderBy('id','DESC')->where('user', $id)->where('status', 'final')->get();
+            $noAction = Complaint::orderBy('id','DESC')->where('user', $id)->where('status', 1)->get();
+            $Process = Complaint::orderBy('id','DESC')->where('user', $id)->where('status', 2)->get();
+            $complete = Complaint::orderBy('id','DESC')->where('user', $id)->where('status', 3)->get();
+            $final = Complaint::orderBy('id','DESC')->where('user', $id)->where('status', 4)->get();
             $total = Complaint::orderBy('id','DESC')->where('user', $id)->get();
             return view('complaint.manage-complaints-user')->with([
                 'support'=> $present,
@@ -447,7 +447,8 @@ class ComplaintController extends Controller
                     $file = 'image';
                 }
             }
-            return view('complaint.display-complaints-user')->with(['data'=> $data[0], 'user'=> $user[0], 'file'=> $file, 'chat'=> $chat, 'SupportDetail'=> $present, 'userid'=> $user, 'C_id'=> $id]);
+            // before we only send "user varaible"
+            return view('complaint.display-complaints-user')->with(['data'=> $data[0], 'user'=> $user[0], 'file'=> $file, 'chat'=> $chat, 'SupportDetail'=> $present, 'userid'=> $user[0]['id'], 'C_id'=> $id]);
         }
         catch(Exception $e){
             $notification = array(

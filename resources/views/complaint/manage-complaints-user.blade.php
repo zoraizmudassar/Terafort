@@ -57,7 +57,7 @@
                                 <div class="icon-info mb-3">
                                     <i class="dripicons-checkmark card-eco-icon text-secondary align-self-center bg-soft-secondary"></i>
                                 </div>
-                                <h3 class="text-dark" id="final">{{$final}}</h3>
+                                <h3 class="text-dark" id="final">{{$complete}}</h3>
                                 <h6 class="font-14 text-dark">Closed</h6>                                                                                                                            
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                 <div class="icon-info mb-3">
                                     <i class="mdi mdi-checkbox-multiple-marked-circle-outline bg-soft-success"></i>
                                 </div>
-                                <h3 class="text-dark" id="complete">{{$complete}}</h3>
+                                <h3 class="text-dark" id="complete">{{$final}}</h3>
                                 <h6 class="font-14 text-dark">Complete</h6>                                                                                                                            
                             </div>
                         </div>
@@ -172,7 +172,7 @@
 <script>
     $(document).ready(function(){ 
         $("#loader1").fadeOut(1200);
-        $("body").addClass("enlarge-menu");
+        // $("body").addClass("enlarge-menu");
     });
     $(".SessionIdC").click(function(){
         var id = $(this).attr("data-id");

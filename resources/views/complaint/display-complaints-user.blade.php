@@ -111,14 +111,14 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header" style="background-color: transparent">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Objective User?</h5>
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Complete Complaint?</h5>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Select "Delete" below if you are ready to Complete Complaint?
+                                                    Select "Complete" below if you are ready to Complete Complaint
                                                 </div>
                                                 <div class="modal-footer" style="background-color: transparent">
-                                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-success complete-user" id="complete-user" data-dismiss="modal">Complete</button>
+                                                    <button type="button" style="box-shadow: none;" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                                    <button type="button" style="box-shadow: none;" class="btn btn-success complete-user" id="complete-user" data-dismiss="modal">Complete</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -198,13 +198,13 @@
                                     </div>
                                     <div class="col text-right">
                                         @if($data['status'] == 1)    
-                                        <span class="badge badge-md badge-boxed badge-danger p-2 my-2" style="font-size: small !important;">No Action</span>
+                                        <span class="badge badge-md badge-boxed badge-soft-danger p-2 my-2" style="font-size: small !important;">No Action</span>
                                         @elseif($data['status'] == 2)
-                                        <span class="badge badge-md badge-boxed badge-warning p-2 my-2" style="font-size: small !important;">In Process</span>
+                                        <span class="badge badge-md badge-boxed badge-soft-warning p-2 my-2" style="font-size: small !important;">In Process</span>
                                         @elseif($data['status'] == 3)
-                                        <span class="badge badge-md badge-boxed badge-secondary p-2 my-2" style="font-size: small !important;">Closed</span>
+                                        <span class="badge badge-md badge-boxed badge-soft-secondary p-2 my-2" style="font-size: small !important;">Closed</span>
                                         @elseif($data['status'] == 4)
-                                        <span class="badge badge-md badge-boxed badge-success p-2 my-2" style="font-size: small !important;">Complete</span>
+                                        <span class="badge badge-md badge-boxed badge-soft-success p-2 my-2" style="font-size: small !important;">Complete</span>
                                         @endif
                                         <?php $result = $data['created_at']; $time = $result->format('g:i:s A'); $day = $result->format('d-M-Y'); ?>
                                         <h5 class="mt-1"><i class="mdi mdi-calendar-text-outline"></i> {{$day}}</h5>
@@ -439,6 +439,9 @@
                     var complaint = $("#complaint").val();
                     document.getElementById("Chatform").reset();
                     var userid = $("#userid").val();
+                    console.log("userid");
+                    console.log(userid);
+                    console.log("userid");
                     var loginid = $("#loginid").val();
                     var tem1 = null;
                         $.ajax({     

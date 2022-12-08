@@ -104,13 +104,13 @@
                                     </div>
                                     <div class="col text-right">
                                         @if($data['status'] == 1)    
-                                        <span class="badge badge-md badge-boxed badge-danger p-2 my-2" style="font-size: small !important;">No Action</span>
+                                        <span class="badge badge-md badge-boxed badge-soft-danger p-2 my-2" style="font-size: small !important;">No Action</span>
                                         @elseif($data['status'] == 2)
-                                        <span class="badge badge-md badge-boxed badge-warning p-2 my-2" style="font-size: small !important;">In Process</span>
+                                        <span class="badge badge-md badge-boxed badge-soft-warning p-2 my-2" style="font-size: small !important;">In Process</span>
                                         @elseif($data['status'] == 3)
-                                        <span class="badge badge-md badge-boxed badge-secondary p-2 my-2" style="font-size: small !important;">Closed</span>
+                                        <span class="badge badge-md badge-boxed badge-soft-secondary p-2 my-2" style="font-size: small !important;">Closed</span>
                                         @elseif($data['status'] == 4)
-                                        <span class="badge badge-md badge-boxed badge-success p-2 my-2" style="font-size: small !important;">Complete</span>
+                                        <span class="badge badge-md badge-boxed badge-soft-success p-2 my-2" style="font-size: small !important;">Complete</span>
                                         @endif
                                         <?php $result = $data['created_at']; $time = $result->format('g:i:s A'); $day = $result->format('d-M-Y'); ?>
                                         <h5 class="mt-1"><i class="mdi mdi-calendar-text-outline"></i> {{$day}}</h5>
