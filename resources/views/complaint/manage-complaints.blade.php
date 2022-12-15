@@ -162,17 +162,8 @@
                                             <td style="width: 10%;">{{$value['name']}}</td>
                                             <td style="text-transform: capitalize;">
                                             <?php
-                                                $pieces = explode(" ", $value['department']);
-                                                echo $pieces[0];
-                                                echo '<br>';
-                                                if(count($pieces) == 2){
-                                                    echo $pieces[1];
-                                                    echo '<br>';
-                                                }
-                                                if(count($pieces) == 3){
-                                                    echo $pieces[2];
-                                                    echo '<br>';
-                                                }
+                                                $string = trim(preg_replace('/\s\s+/', ' ', $value['department']));
+                                                echo $string;
                                             ?> 
                                             </td>
                                             <td>

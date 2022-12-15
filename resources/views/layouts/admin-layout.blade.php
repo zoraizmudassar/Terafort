@@ -145,6 +145,12 @@
                     <li class="nav-item"><a class="nav-link" href="{{url('role-manage-new')}}"><i class="ti-control-record"></i>Manage Roles</a></li>
                 </ul>
             </li>
+            <li class="{{ Request::path() == 'helpdesk-report' ? 'mm-active active' : '' }}">
+                <a href="javascript: void(0);" class="{{ Request::path() == 'helpdesk-report' ? 'active' : '' }}"><i class="ti-layers-alt"></i><span>Reports</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="{{ Request::path() == 'helpdesk-report' ? 'nav-item active' : 'nav-item' }}"><a class="{{ Request::path() == 'helpdesk-report' ? 'nav-link active' : 'nav-link' }}"  href="{{url('helpdesk')}}"><i class="ti-control-record"></i>Help Desk Report</a></li>  
+                </ul>
+            </li>
             <li>
                 <a href="javascript: void(0);"><i class="ti-user"></i><span>Profile</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level" aria-expanded="false">

@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ReportController;
 use App\Http\Middleware\Role;
 use App\Http\Middleware\Admin;
 
@@ -23,6 +24,7 @@ Route::post('SignIn', [UserController::class, 'Signupp'])->name('SignIn');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function(){
+
     //Admin
     Route::middleware([Admin::class])->group(function(){
         Route::get('master-data', [AdminController::class, 'masterData'])->name('master-data');
@@ -33,6 +35,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('update-department/{value}/{id}', [AdminController::class, 'updateDepartment'])->name('update-department');
         Route::get('update-designation/{value}/{id}', [AdminController::class, 'updateDesignation'])->name('update-designation');
     });
+
     //User
     Route::get('create', [UserController::class, 'User'])->name('create');
     Route::post('user-create', [UserController::class, 'Create'])->name('user-create');
@@ -45,6 +48,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('username/{id}', [UserController::class, 'username'])->name('username');
     Route::get('email/{id}', [UserController::class, 'email'])->name('email');
     Route::get('delete/{id}', [UserController::class, 'delete'])->name('delete');
+
     //Complaint
     Route::get('complaint', [ComplaintController::class, 'Create'])->name('complaint');
     Route::get('manage-complaints', [ComplaintController::class, 'manageComplaints'])->name('manage-complaints');
@@ -65,6 +69,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('support', [ComplaintController::class, 'Support'])->name('support');
     Route::get('completeComplaint/{id}', [ComplaintController::class, 'Complete']);
     Route::get('rejectComplaint/{id}', [ComplaintController::class, 'Reject']);
+
     //Role
     Route::middleware([Role::class])->group(function(){
         Route::get('role-create', [RoleController::class, 'roleCreate'])->name('role-create');
@@ -74,4 +79,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('roles-manage-ajax', [RoleController::class, 'roleManageAjax'])->name('roles-manage-ajax');
         Route::get('ajax/{id}', [RoleController::class, 'ajax'])->name('ajax');
     });
+
+    //Report
+    Route::get('helpdesk', [ReportController::class, 'Helpdesk'])->name('helpdesk');
+    Route::post('helpdesk-report', [ReportController::class, 'HelpdeskReportDisplay'])->name('helpdesk-report');
+    Route::post('helpdesk-report-download', [ReportController::class, 'HelpdeskReportDownload'])->name('helpdesk-report-download');
+    Route::get('department/{id}', [ReportController::class, 'Department'])->name('department');
 });
