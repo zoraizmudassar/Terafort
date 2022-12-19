@@ -109,7 +109,6 @@
                                         <tr>
                                             <th hidden>#</th>
                                             <th>Complaint No</th>
-                                            <th>Employee</th>
                                             <th>Status</th>
                                             <th>Category</th>
                                             <th>Date & Time</th>
@@ -123,7 +122,6 @@
                                         <tr>                              
                                             <td hidden>{{$i++}}</td>
                                             <td>{{$value['data']['id']}}</td>
-                                            <td>{{$value['name']}}</td>
                                             <td>
                                                 @if($value['data']['status'] == 1)    
                                                 <span class="badge badge-md badge-boxed badge-soft-danger p-2 w-100">No Action</span>
@@ -140,7 +138,13 @@
                                                 <?php $result = $value['data']['created_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
                                                 <i class="mdi mdi-calendar-text-outline"></i> {{$day}} <br><i class="mdi mdi-timer"></i> {{$time}}
                                             </td>
-                                            <td>{{$value['data']['approve_by']}}</td>
+                                            <td>
+                                                @if(isset($value['data']['approve_by']) && !empty($value['data']['approve_by'])) 
+                                                    {{$value['data']['approve_by']}}
+                                                @else
+                                                    -
+                                                @endif 
+                                            </td>
                                             <td>
                                                 @if(isset($value['data']['updated_at']) && !empty($value['data']['updated_at'])) 
                                                     @if($value['data']['created_at'] != $value['data']['updated_at'])

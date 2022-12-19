@@ -21,6 +21,7 @@ class User extends Authenticatable
         'phone',
         'department',
         'designation',
+        'location',
         'role',
         'status',
         'password',

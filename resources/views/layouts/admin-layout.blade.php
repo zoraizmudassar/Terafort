@@ -130,11 +130,11 @@
             <li class="{{ Request::path() == 'home' ? 'mm-active active' : '' }}">
                 <a class="{{ Request::path() == 'home' ? 'active' : '' }}" href="{{url('home')}}"><i class="ti-bar-chart"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
             </li>
-            <li>
-                <a href="javascript: void(0);"><i class="ti-settings"></i><span>Master Settings</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+            <li class="{{ Request::path() == 'user-edit' ? 'mm-active active' : '' }}">
+                <a href="javascript: void(0);" class="{{ Request::path() == 'user-edit' ? 'active' : '' }}"><i class="ti-settings"></i><span>Master Settings</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li class="nav-item"><a class="nav-link" href="{{url('create')}}"><i class="ti-control-record"></i>Create User</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url('manage-user')}}"><i class="ti-control-record"></i>Manage User</a></li>     
+                    <li class="{{ Request::path() == 'user-edit' ? 'nav-item active' : 'nav-item' }}"><a class="{{ Request::path() == 'user-edit' ? 'nav-link active' : 'nav-link' }}" href="{{url('manage-user')}}"><i class="ti-control-record"></i>Manage User</a></li>     
                     <li class="nav-item"><a class="nav-link"  href="{{url('master-data')}}"><i class="ti-control-record"></i>Master Data</a></li>
                 </ul>
             </li>
@@ -302,8 +302,6 @@ case 'error':
     Swal.fire({
         icon: 'error',
         title: "{{ session('message') }}",
-        showConfirmButton: false,
-        timer: 2000
     });
     break;
 }

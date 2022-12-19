@@ -193,12 +193,10 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <label class="mt-3"><b style="color: #6c757d">Status</b></label>
-                                <select style="border: 1px solid #d9d8d8;" id="status" name="status" class="form-control select.custom-select" required>
-                                    <option value="1">Active</option>
-                                    <option value="2">Deactive</option>
-                                    <option value="3">Terminate</option>
-                                    <option value="4">Delete</option>
+                                <label class="mt-3"><b style="color: #6c757d">Office Location</b></label>
+                                <select style="border: 1px solid #d9d8d8;" id="location" name="location" class="form-control select.custom-select" required>
+                                    <option value="Lahore">Lahore</option>
+                                    <option value="Islamabad">Islamabad</option>
                                 </select>
                             </div>
                         </div> 

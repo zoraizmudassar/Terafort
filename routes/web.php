@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('roles-create', [RoleController::class, 'createRole'])->name('roles-create');
         Route::post('roles-manage-ajax', [RoleController::class, 'roleManageAjax'])->name('roles-manage-ajax');
         Route::get('ajax/{id}', [RoleController::class, 'ajax'])->name('ajax');
+        Route::get('role/{id}', [RoleController::class, 'role'])->name('role');
     });
 
     //Report

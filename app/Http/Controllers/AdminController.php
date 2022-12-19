@@ -266,4 +266,67 @@ class AdminController extends Controller
         );
         return back()->with($notification);
     }
+
+    public function uploadContent(Request $request)
+    {
+        $file = $request->file('uploaded_file');
+        if($file){
+            $filename = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $tempPath = $file->getRealPath();
+            $fileSize = $file->getSize();
+            $location = 'uploads';
+            $snap = "Profile.png";
+            $file->move($location, $filename);
+            $filepath = public_path($location . "/" . $filename);
+            $file = fopen($filepath, "r");
+            $importData_arr = array();
+            $i = 0;
+            while(($filedata = fgetcsv($file, 1000, ",")) !== FALSE){
+                $num = count($filedata);
+                if($i == 0){
+                    $i++;
+                    continue;
+                }
+                for($c = 0; $c < $num; $c++){
+                    $importData_arr[$i][] = $filedata[$c];
+                }
+                $i++;
+            }
+            fclose($file);
+            $j = 0;
+            foreach($importData_arr as $importData){
+                $j++;
+                try{
+                    DB::beginTransaction();
+                    DB::table('users')->insert([
+                        'name' => $importData[3],
+                        'email' => $importData[4],
+                        'username' => $importData[2],
+                        'firstname' => $importData[0],
+                        'lastname' => $importData[1],
+                        'phone' => $importData[5],
+                        'department' => $importData[6],
+                        'designation' => $importData[7],
+                        'location' => "Islamabad",
+                        'role' => "Employee",
+                        'image' => $snap,
+                        'status' => 1,
+                        'password' => Hash::make('12345678'),
+                    ]);
+                    DB::commit();
+                } 
+                catch(\Exception $e){
+                    dd($e);
+                    DB::rollBack();
+                }
+            }
+            return response()->json([
+                'message' => "$j records successfully uploaded"
+            ]);
+        } 
+        else{
+            throw new \Exception('No file was uploaded', Response::HTTP_BAD_REQUEST);
+        }
+    }
 }

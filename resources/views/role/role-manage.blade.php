@@ -60,19 +60,19 @@
                                                     </div>
                                                     <div id="collapseOne1" class="collapse" aria-labelledby="headingOne1" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                         <div class="card-body">
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="r1">
                                                                 <input class="form-check-input name rolecheck checkbox-info" id="rolelist1" type="checkbox" name="Role[]">
                                                                 <span id="rolelist" class="form-check-label"></span>
                                                             </label>
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="r2">
                                                                 <input class="form-check-input name rolecheck checkbox-info" id="rolecreate1" type="checkbox" name="Role[]">
                                                                 <span id="rolecreate" class="form-check-label"></span>
                                                             </label>
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="r3">
                                                                 <input class="form-check-input name rolecheck checkbox-info" id="roleedit1" type="checkbox" name="Role[]">
                                                                 <span id="roleedit" class="form-check-label"></span>
                                                             </label>
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="r4">
                                                                 <input class="form-check-input name rolecheck checkbox-dark" id="roledelete1" type="checkbox" name="Role[]">
                                                                 <span id="roledelete" class="form-check-label"></span>
                                                             </label>                            
@@ -91,19 +91,19 @@
                                                     </div>
                                                     <div id="collapseOne122" class="collapse" aria-labelledby="headingOne122" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                         <div class="card-body">
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="u1">
                                                                 <input class="form-check-input name usercheck" id="userlist1" type="checkbox" name="User[]">
                                                                 <span id="userlist" class="form-check-label"></span>
                                                             </label>
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="u2">
                                                                 <input class="form-check-input name usercheck" id="usercreate1" type="checkbox" name="User[]">
                                                                 <span id="usercreate" class="form-check-label"></span>
                                                             </label>
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="u3">
                                                                 <input class="form-check-input name usercheck" id="useredit1" type="checkbox" name="User[]">
                                                                 <span id="useredit" class="form-check-label"></span>
                                                             </label>
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="u4">
                                                                 <input class="form-check-input name usercheck" id="userdelete1" type="checkbox" name="User[]">
                                                                 <span id="userdelete" class="form-check-label"></span>
                                                             </label>
@@ -122,17 +122,21 @@
                                                     </div>
                                                     <div id="headingOne12211" class="collapse" aria-labelledby="headingOne12211a" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                         <div class="card-body">
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="o1">
                                                                 <input class="form-check-input name othercheck" id="employee1" type="checkbox" name="Others[]">
                                                                 <span id="employee" class="form-check-label"></span>
                                                             </label>
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="o2">
                                                                 <input class="form-check-input name othercheck" id="admin1" type="checkbox" name="Others[]">
                                                                 <span id="admin" class="form-check-label"></span>
                                                             </label>
-                                                            <label class="form-check form-check-inline">
+                                                            <label class="form-check form-check-inline" id="o3">
                                                                 <input class="form-check-input name othercheck" id="s_admin1" type="checkbox" name="Others[]">
                                                                 <span id="s_admin" class="form-check-label"></span>
+                                                            </label>
+                                                            <label class="form-check form-check-inline" id="o4">
+                                                                <input class="form-check-input name othercheck" id="s_admin21" type="checkbox" name="Others[]">
+                                                                <span id="s_admin2" class="form-check-label"></span>
                                                             </label>
                                                             <label class="form-check form-check-inline" style="float: right;">
                                                                 <input class="form-check-input" id="otherAll" type="checkbox">
@@ -180,36 +184,72 @@
                         $("#roles").show();
                     }
                     else{
-                        $("#rolelist").html(data.role[0].permission_name);
-                        $("#rolelist1").attr('value', data.role[0].permission_name);
-                        if(data.role[0].permission_value == 1){
-                            $("#rolelist1").attr('checked', true);
-                        } 
+                        if(data.role[0]){
+                            $("#r1").show();
+                            $("#rolelist").html(data.role[0].permission_name);
+                            $("#rolelist1").attr('value', data.role[0].permission_name);
+                            if(data.role[0].permission_value == 1){
+                                $("#rolelist1").attr('checked', true);
+                            } 
+                            else{
+                                $("#rolelist1").attr('checked', false);
+                            }
+                        }
                         else{
+                            $("#r1").show();
+                            $("#rolelist").html("Role List");
+                            $("#rolelist1").attr('value', "Role List");
                             $("#rolelist1").attr('checked', false);
                         }
-                        $("#rolecreate").html(data.role[1].permission_name);
-                        $("#rolecreate1").attr('value', data.role[1].permission_name);
-                        if(data.role[1].permission_value == 1){
-                            $("#rolecreate1").attr('checked', true);
-                        } 
+                        if(data.role[1]){
+                            $("#r2").show();
+                            $("#rolecreate").html(data.role[1].permission_name);
+                            $("#rolecreate1").attr('value', data.role[1].permission_name);
+                            if(data.role[1].permission_value == 1){
+                                $("#rolecreate1").attr('checked', true);
+                            } 
+                            else{
+                                $("#rolecreate1").attr('checked', false);
+                            }
+                        }
                         else{
+                            $("#r2").show();
+                            $("#rolecreate").html("Role Create");
+                            $("#rolecreate1").attr('value', "Role Create");
                             $("#rolecreate1").attr('checked', false);
                         }
-                        $("#roleedit").html(data.role[2].permission_name);
-                        $("#roleedit1").attr('value', data.role[2].permission_name);
-                        if(data.role[2].permission_value == 1){
-                            $("#roleedit1").attr('checked', true);
-                        } 
+                        if(data.role[2]){    
+                            $("#r3").show();
+                            $("#roleedit").html(data.role[2].permission_name);
+                            $("#roleedit1").attr('value', data.role[2].permission_name);
+                            if(data.role[2].permission_value == 1){
+                                $("#roleedit1").attr('checked', true);
+                            } 
+                            else{
+                                $("#roleedit1").attr('checked', false);
+                            }
+                        }
                         else{
+                            $("#r3").show();
+                            $("#roleedit").html("Role Edit");
+                            $("#roleedit1").attr('value', "Role Edit");
                             $("#roleedit1").attr('checked', false);
                         }
-                        $("#roledelete").html(data.role[3].permission_name);
-                        $("#roledelete1").attr('value', data.role[3].permission_name);
-                        if(data.role[3].permission_value == 1){
-                            $("#roledelete1").attr('checked', true);
+                        if(data.role[3]){    
+                            $("#r4").show();
+                            $("#roledelete").html(data.role[3].permission_name);
+                            $("#roledelete1").attr('value', data.role[3].permission_name);
+                            if(data.role[3].permission_value == 1){
+                                $("#roledelete1").attr('checked', true);
+                            }
+                            else{
+                                $("#roledelete1").attr('checked', false);
+                            }
                         }
                         else{
+                            $("#r4").show();
+                            $("#roledelete").html("Role Delete");
+                            $("#roledelete1").attr('value', "Role Delete");
                             $("#roledelete1").attr('checked', false);
                         }
                         $("#roles").show();
@@ -227,44 +267,78 @@
                         $("#Users").show();
                     }
                     else{
-                        $("#userlist").html(data.user[0].permission_name);
-                        $("#userlist1").attr('value', data.user[0].permission_name);
-                        if(data.user[0].permission_value == 1){
-                            $("#userlist1").attr('checked', true);
-                        } 
+                        if(data.user[0]){    
+                            $("#u1").show();
+                            $("#userlist").html(data.user[0].permission_name);
+                            $("#userlist1").attr('value', data.user[0].permission_name);
+                            if(data.user[0].permission_value == 1){
+                                $("#userlist1").attr('checked', true);
+                            } 
+                            else{
+                                $("#userlist1").attr('checked', false);
+                            }
+                        }
                         else{
+                            $("#u1").show();
+                            $("#userlist").html("User List");
+                            $("#userlist1").attr('value', "User List");
                             $("#userlist1").attr('checked', false);
                         }
-                        $("#usercreate").html(data.user[1].permission_name);
-                        $("#usercreate1").attr('value', data.user[1].permission_name);
-                        if(data.user[1].permission_value == 1){
-                            $("#usercreate1").attr('checked', true);
-                        } 
+                        if(data.user[1]){    
+                            $("#u2").show();
+                            $("#usercreate").html(data.user[1].permission_name);
+                            $("#usercreate1").attr('value', data.user[1].permission_name);
+                            if(data.user[1].permission_value == 1){
+                                $("#usercreate1").attr('checked', true);
+                            } 
+                            else{
+                                $("#usercreate1").attr('checked', false);
+                            }
+                        }
                         else{
+                            $("#u2").show();
+                            $("#usercreate").html("User Create");
+                            $("#usercreate1").attr('value', "User Create");
                             $("#usercreate1").attr('checked', false);
                         }
-                        $("#useredit").html(data.user[2].permission_name);
-                        $("#useredit1").attr('value', data.user[2].permission_name);
-                        if(data.user[2].permission_value == 1){
-                            $("#useredit1").attr('checked', true);
-                        } 
+                        if(data.user[2]){    
+                            $("#u3").show();
+                            $("#useredit").html(data.user[2].permission_name);
+                            $("#useredit1").attr('value', data.user[2].permission_name);
+                            if(data.user[2].permission_value == 1){
+                                $("#useredit1").attr('checked', true);
+                            } 
+                            else{
+                                $("#useredit1").attr('checked', false);
+                            }
+                        }
                         else{
+                            $("#u3").show();
+                            $("#useredit").html("User Edit");
+                            $("#useredit1").attr('value', "User Edit");
                             $("#useredit1").attr('checked', false);
-                        }
-                        $("#userdelete").html(data.user[3].permission_name);
-                        $("#userdelete1").attr('value', data.user[3].permission_name);
-                        if(data.user[3].permission_value == 1){
-                            $("#userdelete1").attr('checked', true);
+                        }   
+                        if(data.user[3]){    
+                            $("#u4").show();
+                            $("#userdelete").html(data.user[3].permission_name);
+                            $("#userdelete1").attr('value', data.user[3].permission_name);
+                            if(data.user[3].permission_value == 1){
+                                $("#userdelete1").attr('checked', true);
+                            }
+                            else{
+                                $("#userdelete1").attr('checked', false);
+                            }
                         }
                         else{
+                            $("#u4").show();
+                            $("#userdelete").html("User Delete");
+                            $("#userdelete1").attr('value', "User Delete");
                             $("#userdelete1").attr('checked', false);
                         }
                         $("#Users").show();
                     }
                     //Others
                     if(data.others.length === 0){
-                        console.log("Other If");
-                        console.log(data.others.length);
                         $("#employee").html("Employee");
                         $("#employee1").attr('value', "Employee"); 
                         $("#admin").html("Admin");
@@ -272,39 +346,73 @@
                         $("#others").show();
                     }
                     else{
-                        console.log("Other Else");
-                        console.log(data.others.length);
-                        $("#employee").html(data.others[0].permission_name);
-                        $("#employee1").attr('value', data.others.permission_name);
-                        if(data.others[0].permission_value == 1){
-                            $("#employee1").attr('checked', true);
-                        } 
+                        if(data.others[0]){    
+                            $("#o1").show();
+                            $("#employee").html(data.others[0].permission_name);
+                            $("#employee1").attr('value', data.others.permission_name);
+                            if(data.others[0].permission_value == 1){
+                                $("#employee1").attr('checked', true);
+                            } 
+                            else{
+                                $("#employee1").attr('checked', false);
+                            }
+                        }
                         else{
+                            $("#o1").show();
+                            $("#employee").html("Employee");
+                            $("#employee1").attr('value', "Employee");
                             $("#employee1").attr('checked', false);
                         }
-                        $("#admin").html(data.others[1].permission_name);
-                        $("#admin1").attr('value', data.others[1].permission_name);
-                        if(data.others[1].permission_value == 1){
-                            $("#admin1").attr('checked', true);
-                        } 
+                        if(data.others[1]){    
+                            $("#o2").show();
+                            $("#admin").html(data.others[1].permission_name);
+                            $("#admin1").attr('value', data.others[1].permission_name);
+                            if(data.others[1].permission_value == 1){
+                                $("#admin1").attr('checked', true);
+                            } 
+                            else{
+                                $("#admin1").attr('checked', false);
+                            }
+                        }
                         else{
+                            $("#o2").show();
+                            $("#admin").html("Admin");
+                            $("#admin1").attr('value', "Admin");
                             $("#admin1").attr('checked', false);
                         }
-                        $("#admin").html(data.others[1].permission_name);
-                        $("#admin1").attr('value', data.others[1].permission_name);
-                        if(data.others[1].permission_value == 1){
-                            $("#admin1").attr('checked', true);
-                        } 
-                        else{
-                            $("#admin1").attr('checked', false);
+                        if(data.others[2]){    
+                            $("#o3").show();
+                            $("#s_admin").html(data.others[2].permission_name);
+                            $("#s_admin1").attr('value', data.others[2].permission_name);
+                            if(data.others[2].permission_value == 1){
+                                $("#s_admin1").attr('checked', true);
+                            } 
+                            else{
+                                $("#s_admin1").attr('checked', false);
+                            }
                         }
-                        $("#s_admin").html(data.others[2].permission_name);
-                        $("#s_admin1").attr('value', data.others[2].permission_name);
-                        if(data.others[2].permission_value == 1){
-                            $("#s_admin1").attr('checked', true);
-                        } 
                         else{
+                            $("#o3").show();
+                            $("#s_admin").html("Support Administrator (LHR)");
+                            $("#s_admin1").attr('value', "Support Administrator (LHR)");
                             $("#s_admin1").attr('checked', false);
+                        }
+                        if(data.others[3]){    
+                            $("#o4").show();
+                            $("#s_admin2").html(data.others[3].permission_name);
+                            $("#s_admin21").attr('value', data.others[3].permission_name);
+                            if(data.others[3].permission_value == 1){
+                                $("#s_admin21").attr('checked', true);
+                            } 
+                            else{
+                                $("#s_admin21").attr('checked', false);
+                            }
+                        }
+                        else{
+                            $("#o4").show();
+                            $("#s_admin2").html("Support Administrator (ISB)");
+                            $("#s_admin21").attr('value', "Support Administrator (ISB)");
+                            $("#s_admin21").attr('checked', false);
                         }
                         $("#others").show();
                     }

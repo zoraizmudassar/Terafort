@@ -33,7 +33,7 @@ class RoleController extends Controller
     public function roleManage(Request $request)
     {
         try{
-            $data = Role::orderBy('id','DESC')->get();
+            $data = Role::orderBy('name','ASC')->get();
             return view('role.role-manage')->with(['data' => $data]);
         }
         catch(Exception $e){
@@ -195,8 +195,9 @@ class RoleController extends Controller
             $RoleName[] = [
                 'name' => $name,
             ];
-    
-            // Permission::where('name', $name)->delete();
+                
+            Permission::where('role_name', $name)->delete();
+            Role::where('name', $name)->delete();
             Permission::insert($Userdata);
             Permission::insert($Roledata);
             Permission::insert($Otherdata);
@@ -227,17 +228,18 @@ class RoleController extends Controller
             $id = Auth::user()->id;
             $Role = array("Role List" => 0, "Role Create" => 0, "Role Edit" => 0, "Role Delete" => 0);
             $User = array("User List" => 0, "User Create" => 0, "User Edit" => 0, "User Delete" => 0);
-            $Others = array("Employee" => 0, "Admin" => 0,"Support Administrator" => 0);
+            $Others = array("Employee" => 0, "Admin" => 0, "Support Administrator (LHR)" => 0, "Support Administrator (ISB)" => 0);
     
             if($request->Others != NULL){
                 for($i=0; $i<count($request->Others); $i++){ 
                     if($request['Others'][$i] == "Employee") $Others['Employee'] = 1;
                     if($request['Others'][$i] == "Admin") $Others['Admin'] = 1;
-                    if($request['Others'][$i] == "Support Administrator") $Others['Support Administrator'] = 1;
+                    if($request['Others'][$i] == "Support Administrator (LHR)") $Others['Support Administrator (LHR)'] = 1;
+                    if($request['Others'][$i] == "Support Administrator (ISB)") $Others['Support Administrator (ISB)'] = 1;
                 }
             }
             else{
-                $Otherss = array("Employee", "Admin", "Support Administrator");
+                $Otherss = array("Employee", "Admin", "Support Administrator", "Support Administrator (LHR)", "Support Administrator (ISB)");
             }
     
             if($request->Role != NULL){
@@ -275,7 +277,7 @@ class RoleController extends Controller
                 }
             }
             else{
-                for($i=0; $i<3; $i++){
+                for($i=0; $i<4; $i++){
                     $Otherdata[] = [
                         'role_name' => $name,
                         'permission_name' => $Otherss[$i],
@@ -341,6 +343,28 @@ class RoleController extends Controller
                 'alert-type' => 'success'
             );
             return redirect()->route('role-manage-new')->with($notification);
+        }
+        catch(Exception $e){
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+    }
+
+    public function role($id)
+    {
+        try{
+            $update = Role::where('name', $id)->pluck('name');
+            if(isset($update[0]) == $id){
+                $value = 1;
+                return response()->json($value);
+            }
+            else{
+                $value = 2;
+                return response()->json($value);
+            }
         }
         catch(Exception $e){
             $notification = array(

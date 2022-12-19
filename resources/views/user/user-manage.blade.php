@@ -39,8 +39,9 @@
                                         <th class="text-left pl-4"> <span class="pl-5"></span> Name</th>
                                         <th>Email</th>
                                         <th>Username</th>
-                                        <th>Designation</th>
                                         <th>Department</th>
+                                        <th>Designation</th>
+                                        <th>Position</th>
                                         <th>Status</th>
                                         <th>Role</th>
                                         <th class="text-center">Action</th>
@@ -65,8 +66,9 @@
                                             </td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->username}}</td>
-                                            <td>{{$user->designation}}</td>
                                             <td>{{$user->department}}</td>
+                                            <td>{{$user->designation}}</td>
+                                            <td>{{$user->location}}</td>
                                             <td>
                                             @if($user->status == 1)    
                                                 <span class="badge badge-md badge-boxed badge-soft-success mr-2 p-2 mt-1">Active</span>

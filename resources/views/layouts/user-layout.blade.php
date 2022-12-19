@@ -254,22 +254,22 @@
                     <li class="nav-item"><a class="nav-link" href="{{url('user-password')}}"><i class="ti-control-record"></i>Change Password</a></li>
                 </ul>
             </li>
-            @if(Auth::user()->role != 'Support Administrator')
-            <li class="{{ Request::path() == 'complaints-view-user' ? 'mm-active active' : Request::path() == 'complaints-edit-user' ? 'mm-active active' : Request::path() == 'complaints-view' ? 'mm-active active' : '' }}">
-                <a href="javascript: void(0);" class="{{ Request::path() == 'complaints-view-user' ? 'active' : Request::path() == 'complaints-edit-user' ? 'active' : Request::path() == 'complaints-view' ? 'active' : '' }}"><i class="ti-desktop"></i><span>Help Desk</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
-                <ul class="nav-second-level p-0" aria-expanded="false">
-                    <li class="{{ Request::path() == 'complaints-view-user' ? 'nav-item active' : Request::path() == 'complaints-edit-user' ? 'nav-item active' : Request::path() == 'complaints-view' ? 'nav-item active' : 'nav-item' }}"><a class="{{ Request::path() == 'complaints-view-user' ? 'nav-link active' : Request::path() == 'complaints-view' ? 'nav-link active' :  Request::path() == 'complaints-edit-user' ? 'nav-link active' : 'nav-link' }}" href="{{url('manage-complaint')}}"><i class="ti-control-record"></i>Manage Complaints</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url('complaint')}}"><i class="ti-control-record"></i>Submit Complaint</a></li>   
-                </ul>
-            </li>      
-            @else
+            @if(Auth::user()->role == 'Support Administrator (LHR)' || Auth::user()->role == 'Support Administrator (ISB)')              
             <li class="{{ Request::path() == 'complaints-view' ? 'mm-active active' : '' }}">
                 <a href="javascript: void(0);" class="{{ Request::path() == 'complaints-view' ? 'active' : '' }}"><i class="ti-desktop"></i><span>Help Desk</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level p-0" aria-expanded="false">
                     <li class="{{ Request::path() == 'complaints-view' ? 'nav-item active' : 'nav-item' }}"><a class="{{ Request::path() == 'complaints-view' ? 'nav-link active' : 'nav-link' }}" href="{{url('manage-complaints')}}"><i class="ti-control-record"></i>Manage Complaints</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{url('master-settings')}}"><i class="ti-control-record"></i>Master Settings</a></li>          
                 </ul>
-            </li>    
+            </li>  
+            @else
+            <li class="{{ Request::path() == 'complaints-view-user' ? 'mm-active active' : Request::path() == 'complaints-edit-user' ? 'mm-active active' : Request::path() == 'complaints-view' ? 'mm-active active' : '' }}">
+                <a href="javascript: void(0);" class="{{ Request::path() == 'complaints-view-user' ? 'active' : Request::path() == 'complaints-edit-user' ? 'active' : Request::path() == 'complaints-view' ? 'active' : '' }}"><i class="ti-desktop"></i><span>Help Desk</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level p-0" aria-expanded="false">
+                    <li class="{{ Request::path() == 'complaints-view-user' ? 'nav-item active' : Request::path() == 'complaints-edit-user' ? 'nav-item active' : Request::path() == 'complaints-view' ? 'nav-item active' : 'nav-item' }}"><a class="{{ Request::path() == 'complaints-view-user' ? 'nav-link active' : Request::path() == 'complaints-view' ? 'nav-link active' :  Request::path() == 'complaints-edit-user' ? 'nav-link active' : 'nav-link' }}" href="{{url('manage-complaint')}}"><i class="ti-control-record"></i>Manage Complaints</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('complaint')}}"><i class="ti-control-record"></i>Submit Complaint</a></li>   
+                </ul>
+            </li> 
             @endif
         </ul>
     </div>

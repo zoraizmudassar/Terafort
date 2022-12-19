@@ -34,6 +34,7 @@
                                 <div class="col-sm-3 mb-1 mb-sm-0">
                                     <label for=""><b style="color: #6c757d"> Role Name</b></label>
                                     <input type="text" style="border: 1px solid #bfbfbf;" class="form-control yourclass" id="name" name="name" required placeholder="Role Name">
+                                    <span id="StrengthDisp4" style="font-size: 13px !important;" class="badge displayBadgess text-light py-2 mt-2"></span>     
 								    <button type="submit" class="btn w-100 py-1 text-white mt-4" style="border: none; background: #fc5c04; border: none; font-size: 15px;">Create</button>
                                 </div>
                                 <div class="col-sm-9">
@@ -116,8 +117,12 @@
                                                         <span class="form-check-label">Admin</span>
                                                     </label>
                                                     <label class="form-check form-check-inline">
-                                                        <input class="form-check-input name othercheck" type="checkbox" value="Support Administrator" name="Others[]">
-                                                        <span class="form-check-label">Support Administrator</span>
+                                                        <input class="form-check-input name othercheck" type="checkbox" value="Support Administrator (LHR)" name="Others[]">
+                                                        <span class="form-check-label">Support Administrator (LHR)</span>
+                                                    </label>
+                                                    <label class="form-check form-check-inline">
+                                                        <input class="form-check-input name othercheck" type="checkbox" value="Support Administrator (ISB)" name="Others[]">
+                                                        <span class="form-check-label">Support Administrator (ISB)</span>
                                                     </label>
                                                     <label class="form-check form-check-inline" style="float: right;">
                                                         <input class="form-check-input" id="otherAll" type="checkbox">
@@ -138,6 +143,32 @@
 </div>
 <script src="assets/js/customjquery.min.js"></script>
 <script>
+    let name = document.getElementById('name')
+    let strengthBadge4 = document.getElementById('StrengthDisp4')
+    name.addEventListener("input", () => {
+        Email(name.value);
+        function Email(name){
+            $.ajax({
+                    type: 'GET',
+                    url: 'role/'+name,
+                    dataType: "json",
+                    success: function(data){
+                        if(data){
+                            if(data == 1){
+                                strengthBadge4.style.display = 'block'
+                                strengthBadge4.style.backgroundColor = '#cd3f3f'
+                                strengthBadge4.textContent = 'Role Name Already taken'
+                            }
+                            else if(data == 2){
+                                strengthBadge4.style.display = 'block'
+                                strengthBadge4.style.backgroundColor = '#52a752'
+                                strengthBadge4.textContent = 'Role Name Available'
+                            }
+                        }
+                    }
+                });
+        }
+    });
     $(document).ready(function(){ 
         $("#loader1").fadeOut(1200);
     });

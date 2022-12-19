@@ -63,7 +63,7 @@ class UserController extends Controller
                     'department' => ['required'],
                     'designation' => ['required'],
                     'role' => ['required'],
-                    'status' => ['required'],
+                    'location' => ['location'],
                     'image' => ['required'],
                     'email' => ['required', 'string', 'email', 'max:30', 'unique:users'],
                     'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -78,7 +78,7 @@ class UserController extends Controller
                     'department' => $input['department'],
                     'designation' => $input['designation'],
                     'role' => $input['role'],
-                    'status' => $input['status'],
+                    'location' => $input['location'],
                     'image' => $filename,
                     'password' => Hash::make($input['password']),
                 ]);
@@ -129,9 +129,9 @@ class UserController extends Controller
             try{
                 $id = $request->id;
                 $user = User::find($id);
-                $role = Role::orderBy('id','DESC')->get();
-                $department = Department::orderBy('id','DESC')->get();
-                $designation = Designation::orderBy('id','DESC')->get();
+                $role = Role::orderBy('name','ASC')->get();
+                $department = Department::orderBy('name','ASC')->get();
+                $designation = Designation::orderBy('name','ASC')->get();
                 return view('user.user-edit',compact('id','user','role','department','designation'));
             }
             catch(Exception $e){
