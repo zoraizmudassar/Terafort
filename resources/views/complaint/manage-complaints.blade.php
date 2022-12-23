@@ -133,38 +133,36 @@
                                 <table id="datatable2" class="table dt-responsive nowrap text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th class="px-1" data-orderable="false" style="color: aliceblue;"></th>
                                             <th hidden>#</th>
-                                            <th>Complaint No</th>
-                                            <th>Employee</th>
-                                            <th>Department</th>
-                                            <th>Status</th>
-                                            <th>File</th>
-                                            <th>Category</th>
-                                            <th>Date & Time</th>
-                                            <th>Operator</th>
-                                            <th>Closing Date</th>
-                                            <th>Action</th>
+                                            <th data-orderable="false">Sr. No</th>
+                                            <th data-orderable="false">Employee</th>
+                                            <th data-orderable="false">Location</th>
+                                            <th data-orderable="false">Department</th>
+                                            <th data-orderable="false">Status</th>
+                                            <th data-orderable="false">File</th>
+                                            <th data-orderable="false">Date & Time</th>
+                                            <th data-orderable="false">Operator</th>
+                                            <th data-orderable="false">Closing Date</th>
+                                            <th data-orderable="false">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($support as $value) 
                                         <tr>
-                                            <td>
-                                                @if($value['data']['status'] == 1)
-                                                <div class="spinner-grow text-danger" role="status"></div>
-                                                @else
-                                                <div class="spinner-grow text-white" role="status"></div>
-                                                @endif
-                                            </td>
                                             <td hidden>{{$i++}}</td>
-                                            <td>{{$value['data']['id']}}</td>
-                                            <td style="width: 10%;">{{$value['name']}}</td>
+                                            <td style="width: 5%;">{{$value['data']['id']}}</td>
+                                            <td>
+                                                <?php $explode = explode(" ",$value['name']); ?>
+                                                @foreach($explode as $row)
+                                                    {{$row}}<br>
+                                                @endforeach
+                                            </td>
+                                            <td>{{$value['data']['location']}}</td>
                                             <td style="text-transform: capitalize;">
-                                            <?php
-                                                $string = trim(preg_replace('/\s\s+/', ' ', $value['department']));
-                                                echo $string;
-                                            ?> 
+                                                <?php $explode = explode(" ",$value['department']); ?>
+                                                @foreach($explode as $row)
+                                                    {{$row}}<br>
+                                                @endforeach
                                             </td>
                                             <td>
                                                 @if($value['data']['status'] == 1)    
@@ -184,7 +182,6 @@
                                                 </span>
                                                 @endif
                                             </td>
-                                            <td>{{$value['data']['category']}}</td>
                                             @if($value['data']['updated_at'] == NULL)
                                             <td>
                                                 <?php $result = $value['data']['created_at']; $time = $result->format('g:i A'); $day = $result->format('d-M-Y'); ?>
@@ -198,7 +195,10 @@
                                             @endif                                            
                                             <td>
                                                 @if($value['data']['approve_by'] != NULL)
-                                                    {{$value['data']['approve_by']}}
+                                                    <?php $explode = explode(" ",$value['data']['approve_by']); ?>
+                                                    @foreach($explode as $row)
+                                                        {{$row}}<br>
+                                                    @endforeach
                                                 @else
                                                 -
                                                 @endif

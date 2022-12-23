@@ -254,7 +254,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{url('user-password')}}"><i class="ti-control-record"></i>Change Password</a></li>
                 </ul>
             </li>
-            @if(Auth::user()->role == 'Support Administrator (LHR)' || Auth::user()->role == 'Support Administrator (ISB)')              
+            @if(Auth::user()->role == 'Support Administrator (LHR)' || Auth::user()->role == 'Support Administrator (ISB)' || Auth::user()->role == 'Support Administrator Head')              
             <li class="{{ Request::path() == 'complaints-view' ? 'mm-active active' : '' }}">
                 <a href="javascript: void(0);" class="{{ Request::path() == 'complaints-view' ? 'active' : '' }}"><i class="ti-desktop"></i><span>Help Desk</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="nav-second-level p-0" aria-expanded="false">

@@ -169,10 +169,10 @@ class ComplaintController extends Controller
             );
             $user = Notification::create($notificationData);
             if(Auth::user()->location == 'Lahore'){
-                $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator (LHR)')->pluck('id');
+                $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator (LHR)')->Orwhere('role', 'Support Administrator Head')->pluck('id');
             }
             if(Auth::user()->location == 'Islamabad'){
-                $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator (ISB)')->pluck('id');
+                $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator (ISB)')->Orwhere('role', 'Support Administrator Head')->pluck('id');
             }
             foreach($assignUsers as $assignUser){
                 $NotificationDetailData = array(
@@ -243,11 +243,15 @@ class ComplaintController extends Controller
         if(Auth::user()->role == 'Admin' || 'Support Administrator (LHR)' || 'Support Administrator (ISB)'){
             try{
                 $diff = 'empty';
+                $lastupdate = 0;
                 if(Auth::user()->role == 'Support Administrator (LHR)'){
                     $lastupdate = Complaint::orderBy('id','DESC')->where('location', "Lahore")->limit(1)->get();
                 }
                 if(Auth::user()->role == 'Support Administrator (ISB)'){
                     $lastupdate = Complaint::orderBy('id','DESC')->where('location', "Islamabad")->limit(1)->get();
+                }
+                if(Auth::user()->role == 'Support Administrator Head'){
+                    $lastupdate = Complaint::orderBy('id','DESC')->limit(1)->get();
                 }
                 if(Auth::user()->role == 'Admin'){
                     $lastupdate = Complaint::orderBy('id','DESC')->limit(1)->get();
@@ -270,6 +274,9 @@ class ComplaintController extends Controller
                 if(Auth::user()->role == 'Support Administrator (ISB)'){
                     $support = Complaint::latest()->take(25)->where('location', "Islamabad")->get();
                 }
+                if(Auth::user()->role == 'Support Administrator Head'){
+                    $support = Complaint::latest()->take(25)->get();
+                }
                 if(Auth::user()->role == 'Admin'){
                     $support = Complaint::latest()->take(25)->get();
                 }
@@ -289,6 +296,10 @@ class ComplaintController extends Controller
                 if(Auth::user()->role == 'Support Administrator (ISB)'){
                     $loc = "Islamabad";
                 }
+                if(Auth::user()->role == 'Support Administrator Head'){
+                    $loc = "Islamabad";
+                    $loc1 = "Lahore";
+                }
                 if(Auth::user()->role == 'Admin'){
                     $noAction = Complaint::orderBy('id','DESC')->where('status', 1)->get();
                     $Process = Complaint::orderBy('id','DESC')->where('status', 2)->get();
@@ -296,7 +307,14 @@ class ComplaintController extends Controller
                     $final = Complaint::orderBy('id','DESC')->where('status', 4)->get();
                     $total = Complaint::orderBy('id','DESC')->get();
                 }
-                if(Auth::user()->role != 'Admin'){
+                if(Auth::user()->role == 'Support Administrator Head'){
+                    $noAction = Complaint::orderBy('id','DESC')->where('status', 1)->get();
+                    $Process = Complaint::orderBy('id','DESC')->where('status', 2)->get();
+                    $complete = Complaint::orderBy('id','DESC')->where('status', 3)->get();
+                    $final = Complaint::orderBy('id','DESC')->where('status', 4)->get();
+                    $total = Complaint::orderBy('id','DESC')->get();
+                }
+                if(Auth::user()->role == 'Support Administrator (LHR)' || Auth::user()->role == 'Support Administrator (ISB)'){
                     $noAction = Complaint::orderBy('id','DESC')->where('location', $loc)->where('status', 1)->get();
                     $Process = Complaint::orderBy('id','DESC')->where('location', $loc)->where('status', 2)->get();
                     $complete = Complaint::orderBy('id','DESC')->where('location', $loc)->where('status', 3)->get();
@@ -746,10 +764,10 @@ class ComplaintController extends Controller
             $update = DB::table('complaints')->where('id', $id)->update(['status' => 4]);
             if($update){
                 $event = "Complaint Completed";
-                if(Auth::user()->role == 'Support Administrator (LHR)'){
+                if(Auth::user()->location == 'Lahore'){
                     $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator (LHR)')->pluck('id');
                 }
-                if(Auth::user()->role == 'Support Administrator (ISB)'){
+                if(Auth::user()->location == 'Islamabad'){
                     $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator (ISB)')->pluck('id');
                 }
                 foreach($assignUsers as $assignUser){
@@ -802,10 +820,10 @@ class ComplaintController extends Controller
             $update = DB::table('complaints')->where('id', $id)->update(['status' => 2]);
             if($update){
                 $event = "Complaint Re-Open";
-                if(Auth::user()->role == 'Support Administrator (LHR)'){
+                if(Auth::user()->location == 'Lahore'){
                     $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator (LHR)')->pluck('id');
                 }
-                if(Auth::user()->role == 'Support Administrator (ISB)'){
+                if(Auth::user()->location == 'Islamabad'){
                     $assignUsers = User::orderBy('id','ASC')->where('role', 'Support Administrator (ISB)')->pluck('id');
                 }
                 foreach($assignUsers as $assignUser){

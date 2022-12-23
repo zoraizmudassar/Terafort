@@ -32,7 +32,7 @@
         background-image: url("img/photos/pattern.png");
         background-repeat: repeat;
         background-attachment: fixed;
-        height: 570px;
+        height: 576px;
         background-color: #edf0f5;
         overflow: auto;
     }
@@ -175,7 +175,9 @@
                                 @endif
                                 <br>
                                 @if($data['status'] != 4)
-                                <a href="#custom-modal" style="border:none; background: linear-gradient(14deg, #fc5c04 0%, #f96c07);" class="btn waves-effect text-white" data-toggle="modal" data-animation="bounce" data-target=".compose-modal"><i class="mdi mdi-reply"></i> Reply</a>
+                                    @if(Auth::user()->role == 'Support Administrator Head' && $data['location'] != 'Islamabad')
+                                        <a href="#custom-modal" style="border:none; background: linear-gradient(14deg, #fc5c04 0%, #f96c07);" class="btn waves-effect text-white" data-toggle="modal" data-animation="bounce" data-target=".compose-modal"><i class="mdi mdi-reply"></i> Reply</a>
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -248,6 +250,7 @@
                                 </span>
                             </div>
                             @if($data['status'] != 4)
+                            @if(Auth::user()->role == 'Support Administrator Head' && $data['location'] != 'Islamabad')
                             <div class="chat-footer" id="chatfooter">
                                 <form id="Chatform" class="adminForm">
                                     @csrf
@@ -273,6 +276,7 @@
                                     </div>
                                 </form>
                             </div>
+                            @endif
                             @endif
                         </div>
                     </div>

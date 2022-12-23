@@ -32,7 +32,7 @@
 					    <div class="p-5">
 						    <div class="form-group row py-2">
                                 <div class="col-sm-3 mb-1 mb-sm-0">
-                                    <label for=""><b style="color: #6c757d"> Role Name</b></label>
+                                    <label for=""><b style="color: #6c757d"> Role</b></label>
                                     <input type="text" style="border: 1px solid #bfbfbf;" class="form-control yourclass" id="name" name="name" required placeholder="Role Name">
                                     <span id="StrengthDisp4" style="font-size: 13px !important;" class="badge displayBadgess text-light py-2 mt-2"></span>     
 								    <button type="submit" class="btn w-100 py-1 text-white mt-4" style="border: none; background: #fc5c04; border: none; font-size: 15px;">Create</button>
@@ -42,7 +42,7 @@
                                     <div id="accordion">
                                         <div class="card">
                                             <div class="card-header collapsed py-2 text-white text-center" style="border: none; background: linear-gradient(14deg, #fc5c04 0%, #f96c07); cursor: pointer; border-radius: 4px;" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Role
+                                                Role
                                             </div>
                                             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                 <div class="card-body">
@@ -104,7 +104,7 @@
                                     <div id="accordion">
                                         <div class="card">
                                             <div class="card-header collapsed py-2 text-white text-center" style="border: none; background: linear-gradient(14deg, #fc5c04 0%, #f96c07); cursor: pointer; border-radius: 4px;" id="headingOne11" data-toggle="collapse" data-target="#collapseOne1233" aria-expanded="true" aria-controls="collapseOne">
-                                                Others
+                                                Administrator
                                             </div>
                                             <div id="collapseOne1233" class="collapse" aria-labelledby="headingOne11" data-parent="#accordion" style="border: 0.5px solid #96a3b3;">
                                                 <div class="card-body">
@@ -123,6 +123,10 @@
                                                     <label class="form-check form-check-inline">
                                                         <input class="form-check-input name othercheck" type="checkbox" value="Support Administrator (ISB)" name="Others[]">
                                                         <span class="form-check-label">Support Administrator (ISB)</span>
+                                                    </label>
+                                                    <label class="form-check form-check-inline">
+                                                        <input class="form-check-input name othercheck" type="checkbox" value="Support Administrator Head" name="Others[]">
+                                                        <span class="form-check-label">Support Administrator Head</span>
                                                     </label>
                                                     <label class="form-check form-check-inline" style="float: right;">
                                                         <input class="form-check-input" id="otherAll" type="checkbox">

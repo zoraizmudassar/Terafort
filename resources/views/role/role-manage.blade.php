@@ -138,6 +138,10 @@
                                                                 <input class="form-check-input name othercheck" id="s_admin21" type="checkbox" name="Others[]">
                                                                 <span id="s_admin2" class="form-check-label"></span>
                                                             </label>
+                                                            <label class="form-check form-check-inline" id="o5">
+                                                                <input class="form-check-input name othercheck" id="s_admin31" type="checkbox" name="Others[]">
+                                                                <span id="s_admin3" class="form-check-label"></span>
+                                                            </label>
                                                             <label class="form-check form-check-inline" style="float: right;">
                                                                 <input class="form-check-input" id="otherAll" type="checkbox">
                                                                 <span class="form-check-label">Mark All</span>
@@ -343,6 +347,12 @@
                         $("#employee1").attr('value', "Employee"); 
                         $("#admin").html("Admin");
                         $("#admin1").attr('value', "Admin");
+                        $("#s_admin").html("Support Administrator (LHR)");
+                        $("#s_admin1").attr('value', "Support Administrator (LHR)");
+                        $("#s_admin2").html("Support Administrator (ISB)");
+                        $("#s_admin21").attr('value', "Support Administrator (ISB)");
+                        $("#s_admin3").html("Support Administrator Head");
+                        $("#s_admin31").attr('value', "Support Administrator Head");
                         $("#others").show();
                     }
                     else{
@@ -413,6 +423,23 @@
                             $("#s_admin2").html("Support Administrator (ISB)");
                             $("#s_admin21").attr('value', "Support Administrator (ISB)");
                             $("#s_admin21").attr('checked', false);
+                        }
+                        if(data.others[4]){    
+                            $("#o5").show();
+                            $("#s_admin3").html(data.others[4].permission_name);
+                            $("#s_admin31").attr('value', data.others[4].permission_name);
+                            if(data.others[4].permission_value == 1){
+                                $("#s_admin31").attr('checked', true);
+                            } 
+                            else{
+                                $("#s_admin31").attr('checked', false);
+                            }
+                        }
+                        else{
+                            $("#o5").show();
+                            $("#s_admin3").html("Support Administrator Head");
+                            $("#s_admin31").attr('value', "Support Administrator Head");
+                            $("#s_admin31").attr('checked', false);
                         }
                         $("#others").show();
                     }

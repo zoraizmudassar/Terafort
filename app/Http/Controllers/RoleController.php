@@ -92,17 +92,19 @@ class RoleController extends Controller
             $id = Auth::user()->id;
             $Role = array("Role List" => 0, "Role Create" => 0, "Role Edit" => 0, "Role Delete" => 0);
             $User = array("User List" => 0, "User Create" => 0, "User Edit" => 0, "User Delete" => 0);
-            $Others = array("Employee" => 0, "Admin" => 0,"Support Administrator" => 0);
+            $Others = array("Employee" => 0, "Admin" => 0, "Support Administrator (LHR)" => 0, "Support Administrator (ISB)" => 0, "Support Administrator Head" => 0);
     
             if($request->Others != NULL){
                 for($i=0; $i<count($request->Others); $i++){ 
                     if($request['Others'][$i] == "Employee") $Others['Employee'] = 1;
                     if($request['Others'][$i] == "Admin") $Others['Admin'] = 1;
-                    if($request['Others'][$i] == "Support Administrator") $Others['Support Administrator'] = 1;
+                    if($request['Others'][$i] == "Support Administrator (LHR)") $Others['Support Administrator (LHR)'] = 1;
+                    if($request['Others'][$i] == "Support Administrator (ISB)") $Others['Support Administrator (ISB)'] = 1;
+                    if($request['Others'][$i] == "Support Administrator Head") $Others['Support Administrator Head'] = 1;
                 }
             }
             else{
-                $Otherss = array("Employee", "Admin", "Support Administrator");
+                $Otherss = array("Employee", "Admin", "Support Administrator", "Support Administrator (LHR)", "Support Administrator (ISB)", "Support Administrator Head");
             }
     
             if($request->Role != NULL){
@@ -140,7 +142,7 @@ class RoleController extends Controller
                 }
             }
             else{
-                for($i=0; $i<3; $i++){
+                for($i=0; $i<5; $i++){
                     $Otherdata[] = [
                         'role_name' => $name,
                         'permission_name' => $Otherss[$i],
@@ -228,7 +230,7 @@ class RoleController extends Controller
             $id = Auth::user()->id;
             $Role = array("Role List" => 0, "Role Create" => 0, "Role Edit" => 0, "Role Delete" => 0);
             $User = array("User List" => 0, "User Create" => 0, "User Edit" => 0, "User Delete" => 0);
-            $Others = array("Employee" => 0, "Admin" => 0, "Support Administrator (LHR)" => 0, "Support Administrator (ISB)" => 0);
+            $Others = array("Employee" => 0, "Admin" => 0, "Support Administrator (LHR)" => 0, "Support Administrator (ISB)" => 0, "Support Administrator Head" => 0);
     
             if($request->Others != NULL){
                 for($i=0; $i<count($request->Others); $i++){ 
@@ -236,10 +238,11 @@ class RoleController extends Controller
                     if($request['Others'][$i] == "Admin") $Others['Admin'] = 1;
                     if($request['Others'][$i] == "Support Administrator (LHR)") $Others['Support Administrator (LHR)'] = 1;
                     if($request['Others'][$i] == "Support Administrator (ISB)") $Others['Support Administrator (ISB)'] = 1;
+                    if($request['Others'][$i] == "Support Administrator Head") $Others['Support Administrator Head'] = 1;
                 }
             }
             else{
-                $Otherss = array("Employee", "Admin", "Support Administrator", "Support Administrator (LHR)", "Support Administrator (ISB)");
+                $Otherss = array("Employee", "Admin", "Support Administrator", "Support Administrator (LHR)", "Support Administrator (ISB)", "Support Administrator Head");
             }
     
             if($request->Role != NULL){
@@ -277,7 +280,7 @@ class RoleController extends Controller
                 }
             }
             else{
-                for($i=0; $i<4; $i++){
+                for($i=0; $i<5; $i++){
                     $Otherdata[] = [
                         'role_name' => $name,
                         'permission_name' => $Otherss[$i],
