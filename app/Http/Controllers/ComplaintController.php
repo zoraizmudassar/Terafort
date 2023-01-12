@@ -245,16 +245,16 @@ class ComplaintController extends Controller
                 $diff = 'empty';
                 $lastupdate = 0;
                 if(Auth::user()->role == 'Support Administrator (LHR)'){
-                    $lastupdate = Complaint::orderBy('id','DESC')->where('location', "Lahore")->limit(1)->get();
+                    $lastupdate = Complaint::orderBy('id','ASC')->where('location', "Lahore")->limit(1)->get();
                 }
                 if(Auth::user()->role == 'Support Administrator (ISB)'){
-                    $lastupdate = Complaint::orderBy('id','DESC')->where('location', "Islamabad")->limit(1)->get();
+                    $lastupdate = Complaint::orderBy('id','ASC')->where('location', "Islamabad")->limit(1)->get();
                 }
                 if(Auth::user()->role == 'Support Administrator Head'){
-                    $lastupdate = Complaint::orderBy('id','DESC')->limit(1)->get();
+                    $lastupdate = Complaint::orderBy('id','ASC')->limit(1)->get();
                 }
                 if(Auth::user()->role == 'Admin'){
-                    $lastupdate = Complaint::orderBy('id','DESC')->limit(1)->get();
+                    $lastupdate = Complaint::orderBy('id','ASC')->limit(1)->get();
                 }
                 date_default_timezone_set("Asia/karachi");
                 $time = date("h:i A");
@@ -269,16 +269,16 @@ class ComplaintController extends Controller
                 }
                 $present = array();
                 if(Auth::user()->role == 'Support Administrator (LHR)'){
-                    $support = Complaint::latest()->take(25)->where('location', "Lahore")->get();
+                    $support = Complaint::orderBy('id','DESC')->where('location', "Lahore")->get();
                 }
                 if(Auth::user()->role == 'Support Administrator (ISB)'){
-                    $support = Complaint::latest()->take(25)->where('location', "Islamabad")->get();
+                    $support = Complaint::orderBy('id','DESC')->where('location', "Islamabad")->get();
                 }
                 if(Auth::user()->role == 'Support Administrator Head'){
-                    $support = Complaint::latest()->take(25)->get();
+                    $support = Complaint::orderBy('id','DESC')->get();
                 }
                 if(Auth::user()->role == 'Admin'){
-                    $support = Complaint::latest()->take(25)->get();
+                    $support = Complaint::orderBy('id','DESC')->get();
                 }
                 foreach($support as $data){
                     $department = User::orderBy('id','DESC')->limit(1)->where('id', $data['user'])->get();
